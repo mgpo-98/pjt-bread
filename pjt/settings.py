@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,11 +32,11 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'articles',
     'accounts',
     'imagekit',
     'django_bootstrap5',
     'django_extensions',
+    'reviews',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -59,6 +60,7 @@ ROOT_URLCONF = 'pjt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+
         'DIRS': [
             BASE_DIR / 'pjt' / 'templates'
         ],
@@ -132,9 +134,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 MEDIA_ROOT = BASE_DIR / 'images'
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = [
   BASE_DIR / 'images',
 ]
+
