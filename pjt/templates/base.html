@@ -26,25 +26,39 @@
 
   <body>
     <nav class="navbar navbar-expand-lg bg-light px-5 mb-3">
-      <div class="container-fluid">
-        <!-- 싸이xm 네브바 -->
-        <a class="navbar-brand" href="#">
-          <!-- 싸이트 로고 -->
-          <img src="{% static '로고.png' %}" alt="logo" style="height: 150px;">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
-            </li>
+        <div class="container-fluid">
+            <!-- 싸이xm 네브바 -->
+            <a class="navbar-brand" href="{% url 'accounts:index' %}">
+                <!-- 싸이트 로고 -->
+                <img src="{% static '로고.png' %}" alt="My image" alt="logo" style="height: 150px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- 만약 로그인을 했다면-->
+                    {% if request.user.is_authenticated %}
+                    <!-- 로그아웃 보이기-->
+                    <li class="nav-item mt-3 ">
+                        <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'accounts:detail' user.pk %}">
+                            <span class="nav-link">{{ user.username }}</span></a>
+                    </li>
+                    {% else %}
+                    <!-- 로그인과 회원가입 보이게 하기-->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
+                    </li>
 
-            <!-- 빵추천 팝업창-->
+                    {% endif %}
+                    <!-- 빵추천 팝업창-->
 
             <li class="nav-item">
               <!-- 자바스크립트 알트 버튼-->
@@ -98,9 +112,11 @@ var bread_menu_img = {
 // 랜덤 뽑기 함수
 const bread_menu = bread_menu_list[Math.floor(Math.random() * bread_menu_list.length)];
 
-function bread() {
-alert('오늘의 빵추천 ' + bread_menu_list)
-}
+    function bread() {
+        alert('오늘의 빵추천 : ' + bread_menu)
+        location.reload();
+    }
+
 </script>
 
 </html>
