@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 from django.shortcuts import render
+from reviews.models import Review
 
 # keyword = request.GET.get('keyword')
 
@@ -21,7 +22,9 @@ def shops_by_region(request, region_name):
       'store_score': 평점,
       'store_img': 썸네일,
       'store_region': 위치정보,
+      'store_category': 가게 업종,   
       'store_id': 가게 url,
+      'review_cnt': 식당에 달린 리뷰 개수,
     }
   ]
   '''
@@ -49,12 +52,17 @@ def shops_by_region(request, region_name):
         store_data['store_score'] = store_score[i].text
         store_data['store_img'] = store_img_rst[i]['src']
         store_data['store_region'] = store_region[i * 2].text
-        store_data['store_id'] = p.search(store_id[i]['href']).group()
+        store_data['store_category'] = store_region[2 * i + 1].text
+
+        store_id_rst = p.search(store_id[i]['href']).group()
+        store_data['store_id'] = store_id_rst
+        store_data['review_cnt'] = Review.objects.filter(shop_name=int(store_id_rst)).count
         
         store_DB.append(store_data)
 
   context = {
       'store_DB': store_DB,
+      'region_name': region_name,
   }
 
   return render(request, 'bakeries/shop_list.html', context)
@@ -75,7 +83,9 @@ def shops_by_bread(request, bread_name):
       'store_score': 평점,
       'store_img': 썸네일,
       'store_region': 위치정보,
+      'store_category': 가게 업종,   
       'store_id': 가게 url,
+      'review_cnt': 식당에 달린 리뷰 개수,
     }
   ]
   '''
@@ -103,12 +113,17 @@ def shops_by_bread(request, bread_name):
         store_data['store_score'] = store_score[i].text
         store_data['store_img'] = store_img_rst[i]['src']
         store_data['store_region'] = store_region[i * 2].text
-        store_data['store_id'] = p.search(store_id[i]['href']).group()
+        store_data['store_category'] = store_region[2 * i + 1].text
         
+        store_id_rst = p.search(store_id[i]['href']).group()
+        store_data['store_id'] = store_id_rst
+        store_data['review_cnt'] = Review.objects.filter(shop_name=int(store_id_rst)).count
+
         store_DB.append(store_data)
 
   context = {
       'store_DB': store_DB,
+      'bread_name': bread_name,
   }
 
   return render(request, 'bakeries/shop_list.html', context)
