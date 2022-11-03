@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% comment %} 
+  {    ------------------- 총 15개 데이터 -------------------------
+      'store_name': 식당이름,                            => 베이스
+      'store_score': 평점,                               => 베이스
+      'store_brief_intro': 가게 간단 소개,               => 베이스
+      'store_intro': 가게 소개,                          => 상세
+      'store_imgs': 가게 사진들,                         => 베이스
+      'store_category': 가게 업종,                       => 베이스
+      'store_address': 가게 주소,                        => 홈, 상세
+      'store_way_to_come': 가게 오시는길,                => 상세
+      'store_operating_time': 가게 영업 시간,            => 상세
+      'store_today_operating_time': 오늘 매장 영업 시간, => 홈
+      'store_phone_number': 가게 전화번호,               => 상세
+      'store_facility_detail': 가게 편의 시설 정보,      => 홈
+      'store_main_menu': 가게 대표메뉴,                  => 홈, 메뉴
+      'store_drinks': 가게 음료/주류,                    => 메뉴
+      'store_homepage': 가게 홈페이지,                   => 상세
+  }
+{% endcomment %}
+
+{% block content %}
+<p>{{ store_data.store_name }}</p>
+<p>{{ store_data.store_score }}</p>
+<p>{{ store_data.store_brief_intro }}</p>
+<p>{{ store_data.store_category }}</p>
+<p>{{ store_data.store_intro }}</p>
+{% for img in store_data.store_imgs %}
+  <img src="{{ img }}" alt=""></p>
+{% endfor %}
+<p>{{ store_data.store_address }}</p>
+<p>{{ store_data.store_operating_time }}</p>
+<p>{{ store_data.store_today_operating_time }}</p>
+<p>{{ store_data.store_phone_number }}</p>
+<p>{{ store_data.store_facility_detail }}</p>
+<p>{{ store_data.store_main_menu }}</p>
+<p>{{ store_data.store_drinks }}</p>
+<p>{{ store_data.store_homepage }}</p>
+{% endblock content %}
