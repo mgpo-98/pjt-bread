@@ -56,7 +56,7 @@ def shops_by_region(request, region_name):
 
         store_id_rst = p.search(store_id[i]['href']).group()
         store_data['store_id'] = store_id_rst
-        store_data['review_cnt'] = Review.objects.filter(shop_name=int(store_id_rst)).count
+        store_data['review_cnt'] = Review.objects.filter(shop_id=int(store_id_rst)).count
         
         store_DB.append(store_data)
 
@@ -117,7 +117,7 @@ def shops_by_bread(request, bread_name):
         
         store_id_rst = p.search(store_id[i]['href']).group()
         store_data['store_id'] = store_id_rst
-        store_data['review_cnt'] = Review.objects.filter(shop_name=int(store_id_rst)).count
+        store_data['review_cnt'] = Review.objects.filter(shop_id=int(store_id_rst)).count
 
         store_DB.append(store_data)
 
@@ -211,6 +211,7 @@ def shop_home(request, shop_id):
 
   context = {
     'store_data': store_data,
+    'shop_id': shop_id,
   }
 
   return render(request, 'bakeries/shop_home.html', context)
