@@ -186,7 +186,11 @@ def shop_home(request, shop_id):
     elif title_text == '전화번호':
         store_data['store_phone_number'] = title.next_sibling.get_text()
     elif title_text == '주소':
-        store_data['store_address'] = [text for text in title.next_sibling.stripped_strings][:-1]
+      address = list(title.next_sibling.stripped_strings)
+      if len(address) >=2:
+        store_data['store_address'] = [text for text in address][:-1]
+      else:
+        store_data['store_address'] = [text for text in address]
     elif title_text == '오시는 길':
         store_data['store_way_to_come'] = title.next_sibling.get_text()
     elif title_text == 'TODAY':
@@ -194,9 +198,11 @@ def shop_home(request, shop_id):
     elif title_text == '영업시간':
         store_data['store_operating_time'] = [text for text in title.next_sibling.stripped_strings]
     elif title_text == '편의/시설 정보':
-        store_data['store_facility_detail'] = [text for text in title.next_sibling.stripped_strings if text not in ['(', '(null)', '석)']]
+        p = re.compile('\([a-zA-Z]*\)|\(|\)|,|원')
+
+        store_data['store_facility_detail'] = [text for text in title.next_sibling.stripped_strings if not p.search(text)]
         if title.next_sibling.next_sibling:
-          store_data['store_facility_detail'].extend([re.sub(r'\s+', '', text) for text in title.next_sibling.next_sibling.stripped_strings if text not in [',']])
+          store_data['store_facility_detail'].extend([re.sub(r'\s+', '', text) for text in title.next_sibling.next_sibling.stripped_strings if not p.search(text)])
     elif title_text == '대표메뉴':
         menus = list(title.next_sibling.stripped_strings)
         store_main_menu = []
