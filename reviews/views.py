@@ -14,12 +14,12 @@ def index(request):
     }
     return render(request, 'reviews/index.html', context)
 
-@login_required
-def create(request):
+
+def create(request, shop_id):
     if request.method == 'POST':
         review_form = ReviewForm(request.POST, request.FILES)
         if review_form.is_valid():
-            review= review_form.save(commit=False)
+            review = review_form.save(commit=False)
             # 로그인한 유저 => 작성자네!
             review.user = request.user 
             review.save()
@@ -103,6 +103,7 @@ def like(request, pk):
 
 
 # 리뷰 삭제
+@login_required
 def delete(request, pk):
     review = Review.objects.get(pk=pk)
     if request.method == 'POST':
