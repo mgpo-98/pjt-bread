@@ -1,34 +1,55 @@
+{% extends 'base.html' %}
 {% load django_bootstrap5 %}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block css %}
+  <link rel="stylesheet" href="{% static 'css/bakeries/shop_list.css' %}">
+{% endblock css %}
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
-
-  <body>
-    {% for store_data in store_DB %}
-      <div class="card">
-        <div class="card-body">
-          <p>store_name:
-            {{ store_data.store_name }}</p>
-          <p>store_score:
-            {{ store_data.store_score }}</p>
-          <p>store_img:
-            <img src="{{ store_data.store_img }}" alt=""></p>
-          <p>store_region:
-            {{ store_data.store_region }}</p>
-          <p>store_id_id:
-            {{ store_data.store_id }}</p>
+{% block content %}
+  <h1>
+    {% if region_name %}
+      {{ region_name }}
+    {% else %}
+      {{ bread_name }}
+    {% endif %}
+    검색 결과
+  </h1>
+  <p>{{ store_DB|length }}개의 빵집</p>
+  {% comment %} 지역별 빵집 정보를 담은 카드들 {% endcomment %}
+  {% for store_data in store_DB %}
+  <a href="{% url 'bakeries:shop_home' store_data.store_id %}" class='text-decoration-none text-dark'>
+    <article class="card my-3">
+      <div class="card-body">
+        <div class='row'>
+          <div class='col-3'>
+            <img src="{{ store_data.store_img }}" alt="" class='w-100 rounded-4'>
+          </div>
+          <div class='col-9'>
+            <div class='d-flex align-items-center'>
+              <h4 class='fw-bold me-3 my-0'>
+                {{ store_data.store_name }}
+              </h4>
+              <p class='shop-score m-0'>
+                {{ store_data.store_score }}
+              </p>
+            </div>
+            <div class='d-flex align-items-center text-muted'>
+              <p class='me-2 my-0'>
+                {{ store_data.store_region }}
+              </p>
+              <p class='my-0'>
+                {{ store_data.store_category }}
+              </p>
+            </div>
+            <div class='mt-5'>
+              <i class="bi bi-pencil-fill"></i>
+              <span>{{ store_data.review_cnt }}</span>
+            </div>
+          </div>
         </div>
       </div>
-    {% endfor %}
-  </body>
-
-</html>
+    </article>
+  </a>
+  {% endfor %}
+{% endblock content %}

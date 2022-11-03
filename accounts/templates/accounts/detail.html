@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<h1>회원 정보페이지</h1>
+
+
+
+<p>이름 : {{ user.username }} </p>
+<p>최근 접속시간 : {{ user.last_login }}</p>
+<p>이메일 : {{ user.email }}</p>
+
+
+
+
+{% endblock content %}
