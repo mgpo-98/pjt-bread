@@ -5,10 +5,15 @@
 {% load static %}
 
 {% block content %}
+<div class='review'>
+    {% comment %} <div style='float:left'><strong>{{ shop_name }}</strong></div> {% endcomment %}
+    <div><span>에 대한 솔직한 리뷰를 써주세요✍️</span></div>
+</div>
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {% comment %} { review_form.as_p } {% endcomment %}
     {% bootstrap_form review_form %}
-    {% bootstrap_button style='float:right' button_type="submit" content="SAVE" %}
+    {% bootstrap_button button_class="btn btn-outline-warning" style="font-weight:bold; float:left" button_type="reset" content="취소" %}
+    {% bootstrap_button button_class="btn btn-warning"  button_type="submit" content="리뷰 올리기" %}
 </form>
 {% endblock %}
