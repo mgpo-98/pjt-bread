@@ -9,14 +9,16 @@
         {% for review in reviews %}
         <div class="col-md-4 p-3">
           <div class="card box-shadow">
+            {% comment %} 작성한 리뷰 이미지 {% endcomment %}
             {% if review.image %}
               <img class="card-img-top" src="{{ review.image.url }}">
             {% else %}
              <img src="https://dummyimage.com/1200x960/000000/c4c4c4" class="card-img-top">
             {% endif %}
+
             <div class="card-body">
-              {% comment %} <h5 class="card-title">{{ review.shop_id }}</h5> {% endcomment %}
-              {% comment %} <p class="text-muted"><a href="{% url 'accounts:detail' review.user.pk %}">작성자 {{ review.user.username }}</a></p> {% endcomment %}
+              {% comment %} <h5 class="card-title">{{ review.shop_name }}</h5> {% endcomment %}
+              <p class="text-muted">{{ review.user.image }} <a class='text-decoration-none fw-bolder' style='color:black' href="{% url 'accounts:detail' review.user.pk %}">{{ review.user.username }}</a></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                     <a href="{% url 'reviews:detail' review.pk %}" class="btn btn-outline-primary my-3">리뷰 보기</a>

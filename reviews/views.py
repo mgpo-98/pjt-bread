@@ -10,25 +10,31 @@ from .forms import ReviewForm, CommentForm
 def index(request):
     reviews = Review.objects.order_by('-pk')
     context = {
-        'reviews': reviews
+        'reviews': reviews,
+        
     }
     return render(request, 'reviews/index.html', context)
 
-
+# @login_required 로그인한 경우에만 리뷰 작성 가능
 def create(request, shop_id):
+    request.GET.get('shop_name')
+    # print(request.GET.get('shop_name'))
+    # print(shop_id)
     if request.method == 'POST':
         review_form = ReviewForm(request.POST, request.FILES)
         if review_form.is_valid():
             review = review_form.save(commit=False)
             # 로그인한 유저 => 작성자네!
             review.user = request.user 
+            review.shop_id = shop_id 
             review.save()
             messages.success(request, '리뷰 작성이 완료되었습니다.')
             return redirect('reviews:index')
     else: 
         review_form = ReviewForm()
     context = {
-        'review_form': review_form
+        'review_form': review_form,
+        'shop_name': request.GET.get('shop_name')
     }
     return render(request, 'reviews/form.html', context=context)
 
