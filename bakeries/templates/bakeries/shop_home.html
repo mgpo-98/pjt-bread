@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% comment %} 
-  {    ------------------- 총 15개 데이터 -------------------------
-      'store_name': 식당이름,                            => 베이스
-      'store_score': 평점,                               => 베이스
-      'store_brief_intro': 가게 간단 소개,               => 베이스
-      'store_intro': 가게 소개,                          => 상세
-      'store_imgs': 가게 사진들,                         => 베이스
-      'store_category': 가게 업종,                       => 베이스
-      'store_address': 가게 주소,                        => 홈, 상세
-      'store_way_to_come': 가게 오시는길,                => 상세
-      'store_operating_time': 가게 영업 시간,            => 상세
-      'store_today_operating_time': 오늘 매장 영업 시간, => 홈
-      'store_phone_number': 가게 전화번호,               => 상세
-      'store_facility_detail': 가게 편의 시설 정보,      => 홈
-      'store_main_menu': 가게 대표메뉴,                  => 홈, 메뉴
-      'store_drinks': 가게 음료/주류,                    => 메뉴
-      'store_homepage': 가게 홈페이지,                   => 상세
-  }
+{% comment %}
+{ ------------------- 총 15개 데이터 -------------------------
+'store_name': 식당이름, => 베이스
+'store_score': 평점, => 베이스
+'store_brief_intro': 가게 간단 소개, => 베이스
+'store_intro': 가게 소개, => 상세
+'store_imgs': 가게 사진들, => 베이스
+'store_category': 가게 업종, => 베이스
+'store_address': 가게 주소, => 홈, 상세
+'store_way_to_come': 가게 오시는길, => 상세
+'store_operating_time': 가게 영업 시간, => 상세
+'store_today_operating_time': 오늘 매장 영업 시간, => 홈
+'store_phone_number': 가게 전화번호, => 상세
+'store_facility_detail': 가게 편의 시설 정보, => 홈
+'store_main_menu': 가게 대표메뉴, => 홈, 메뉴
+'store_drinks': 가게 음료/주류, => 메뉴
+'store_homepage': 가게 홈페이지, => 상세
+}
 {% endcomment %}
 
 {% block css %}
@@ -63,7 +63,7 @@
     <div class='col'>
       <a href="" class='active' data-order='0'>홈</a>
     </div>
-    <div class='col'> 
+    <div class='col'>
       <a href="" data-order='1'>메뉴</a>
     </div>
     <div class='col'>
@@ -79,7 +79,7 @@
 
   {% comment %} 홈/메뉴/상세/리뷰 각 탭별 상세 정보 {% endcomment %}
   <section class='tap-infos py-3 px-4'>
-    
+
     {% comment %} 1) home 탭 {% endcomment %}
     <article class='active'>
       {% comment %} 주소 {% endcomment %}
@@ -110,21 +110,24 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
           <div class="carousel-indicators">
             {% for img_url in store_data.store_imgs %}
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="Slide {{ forloop.counter0 }}"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}"
+              aria-label="Slide {{ forloop.counter0 }}"></button>
             {% endfor %}
           </div>
           <div class="carousel-inner">
             {% for img_url in store_data.store_imgs %}
-              <div class="carousel-item">
-                <img src="{{ img_url }}" alt="" class="d-block w-100 h-100">
-              </div>
+            <div class="carousel-item">
+              <img src="{{ img_url }}" alt="" class="d-block w-100 h-100">
+            </div>
             {% endfor %}
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -178,12 +181,14 @@
       {% comment %} 가게 영업 시간 {% endcomment %}
       <div class='mb-4'>
         <h5 class='fw-bold'>영업 시간</h5>
+
         <table>
           {% for day, time in store_data.store_operating_time %}
           <tr>
             <td class='even pe-2 pb-2'>{{ day }}</td>
             <td class='pe-2 pb-2'>{{ time }}</td>
           </tr>
+
           {% endfor %}
         </table>
         </div>
@@ -207,7 +212,7 @@
         {% endfor %}
       </div>
     </article>
-  
+
     {% comment %} 4) review 탭 {% endcomment %}
     <article>
       <div class='mx-auto pb-5 border-bottom' style='width: 440px;'>
@@ -241,7 +246,7 @@
         <a href="{% url 'reviews:detail' review.pk %}" class='d-block ps-2 py-1 review-detail'>자세히</a>
       </div>
       {% empty %}
-      <p>작성된 리뷰가 없습니다</p>
+      <p class='text-center py-3'>작성된 리뷰가 없습니다</p>
       {% endfor %}
     </article>
   </section>

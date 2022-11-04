@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import AuthenticationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import User 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -39,7 +39,7 @@ def login(request):
         form = AuthenticationForm (request.POST, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect('accounts:index')
+            return redirect(request.GET.get('next') or 'accounts:index')
     else:
         form = AuthenticationForm()
     context = {
@@ -76,7 +76,7 @@ def detail(request, pk):
     else:
         profile_image = user.profile_set.all()[0]
     context = {
-        'user' : user,
+        'user' : user, 
         'profile_form' : profile_form,
         'profile_image' : profile_image,
     }
@@ -99,3 +99,14 @@ def update(request, pk):
     return render(request, 'accounts/update.html', context )
 
 
+# 팔로우
+def follow(request, pk):
+    user = get_object_or_404(get_user_model(),pk=pk)
+    if request.user == user:
+        messages.warning(request, '스스로를 팔로우 할 수 없습니다.')
+        return redirect('accounts:detail', pk)
+    if request.user in user.followers.all():
+        user.followers.remove(request.user)
+    else:
+        user.followers.add(request.user)
+    return redirect('accounts:detail', pk)
