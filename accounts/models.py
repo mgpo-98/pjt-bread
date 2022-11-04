@@ -16,10 +16,14 @@ class User(AbstractUser):
         ('비밀', '비밀'),
         ]
     gender = models.CharField(max_length=3,choices=TITLE_CHOICES)
+    followings = models.ManyToManyField('self', symmetrical=False, related_name = 'followers')
     
 
 
 class Profile(models.Model):
     image = models.ImageField(upload_to="images/", default='캡처.jpg')
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete = models.CASCADE)
+
+
+
 
