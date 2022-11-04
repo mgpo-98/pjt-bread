@@ -4,18 +4,23 @@
 {% bootstrap_javascript %}
 {% load static %}
 
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/reviews/review_form.css' %}">
+{% endblock css %}
+
 {% block content %}
 
-<div class='review'>
-    <div style='float:left'><strong>{{ shop_name }}</strong></div>
-    <div><span>에 대한 솔직한 리뷰를 써주세요✍️</span></div>
+<div class='wraper m-auto' style='max-width:720px; width:auto; box-shadow:0 0 20px rgb(0 0 0 / 5%);'>
+    <div class='container py-3' style='background-color:rgb(252, 248, 237, 0.7);'>
+        <div style='float:left'><h5 class='fw-bolder'>{{ shop_name }}</h5></div>
+        <div><span>&nbsp;에 대한 솔직한 리뷰를 써주세요✍️</span></div>
+        <form action="" method="POST" enctype="multipart/form-data" class='form-label mt-3'>
+            {% csrf_token %}
+            {% comment %} { review_form.as_p } {% endcomment %}
+            {% bootstrap_form review_form %}
+            {% bootstrap_button button_class="btn btn-outline-warning me-2" style="font-weight:bold; float:left" button_type="reset" content="취소" %}
+            {% bootstrap_button button_class="btn btn-warning fw-bolder" style='color:white'  button_type="submit" content="리뷰 올리기" %}
+        </form>
+    </div>
 </div>
-<form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% comment %} { review_form.as_p } {% endcomment %}
-    {% bootstrap_form review_form %}
-    {% bootstrap_button button_class="btn btn-outline-warning" style="font-weight:bold; float:left" button_type="reset" content="취소" %}
-    {% bootstrap_button button_class="btn btn-warning fw-bolder" style='color:white'  button_type="submit" content="리뷰 올리기" %}
-</form>
-
 {% endblock %}
