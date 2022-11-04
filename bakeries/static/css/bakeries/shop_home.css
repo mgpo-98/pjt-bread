@@ -1,0 +1,121 @@
+/* 빵집 이미지(carousel) */
+.carousel-background {
+  background-color: rgba(255, 193, 99, 0.589);
+}
+.carousel {
+  margin: auto;
+  width: 50vw;
+  height: 50vw;
+}
+@media screen and (width >= 768px) {
+  .carousel {
+    margin: auto;
+    width: 45vw;
+    height: 45vw;
+  }
+}
+@media screen and (width >= 992px) {
+  .carousel {
+    margin: auto;
+    width: 40vw;
+    height: 40vw;
+  }
+}
+@media screen and (width >= 1200px) {
+  .carousel {
+    margin: auto;
+    width: 35vw;
+    height: 35vw;
+  }
+}
+
+/* 배경 이미지 */
+.background {
+  position: relative;
+  width: 100%;
+  height: 15rem;
+}
+.background-img {
+  width: 100%;
+  height: 100%; 
+}
+.background-cover {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 50%, white);
+}
+
+/* 빵집 평점 */
+.shop-score {
+  font-size: 2rem;
+  font-weight: 700;
+  color: orange;
+}
+
+/* 리뷰 작성 버튼 */
+.review-create-btn {
+  border: none;
+  background-color: white;
+  color: orange;
+}
+.bi-pencil {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* 홈/메뉴/상세/리뷰 탭 버튼 */
+.tap-btns a {
+  display: block;
+  padding: 0.5rem 0;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  color: gray;
+  font-weight: bold;
+}
+.tap-btns a.active {
+  display: block;
+  padding: 0.5rem 0;
+  width: 100%;
+  border-bottom: black 2px solid;
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+/* 홈/메뉴/상세/리뷰 각 탭별 상세 정보 */
+.tap-infos article {
+  display: none;
+}
+.tap-infos article.active {
+  display: block;
+}
+
+/* 홈 탭 상세 정보 */
+.bi-geo-alt, .bi-clock, .bi-shop {
+  font-size: 1.5rem;
+  color: gray;
+  margin-right: 1rem;
+}
+.open {
+  color: red;
+  font-weight: bold;
+}
+
+/* 메뉴 탭 상세 정보 */
+.main-menus {
+  color: rgb(215, 156, 99);
+}
+.drinks {
+  color: gray;
+}
+
+/* 상세 탭 상세 정보 */
+.even {
+  color: rgb(17, 137, 128);
+  font-weight: bold;
+}
+
