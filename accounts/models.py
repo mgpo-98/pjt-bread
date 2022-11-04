@@ -21,7 +21,7 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
-    image = models.ImageField(upload_to="images/", default='캡처.jpg')
+    image = models.ImageField(upload_to="", default='캡처.jpg')
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete = models.CASCADE)
 
 
