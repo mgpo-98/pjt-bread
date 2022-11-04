@@ -23,3 +23,6 @@ def bread(request):
         'bread_img' : bread_img,
     }
     return render(request, 'base.html', context)
+
+def home(request):
+    return render(request, 'home.html')
