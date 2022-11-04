@@ -58,6 +58,13 @@
 <body class="back">
     <nav class="navbar navbar-expand-lg sticky-top" style="background-color: peru; opacity: 80%;">
         <div class="container-fluid">
+            <!-- 싸이트 네브바 -->
+            <a class="navbar-brand" href="{% url 'accounts:index' %}">
+                <!-- 싸이트 로고 -->
+                <img src="{% static '로고.png' %}" alt="My image" alt="logo" style="height: 150px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <a class="navbar-brand" href="/home"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

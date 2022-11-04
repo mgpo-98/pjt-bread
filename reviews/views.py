@@ -93,10 +93,10 @@ def comment_create(request, pk):
         comment.save()
     return redirect("reviews:detail", review.pk)
 
-def comment_delete(request, comment_pk, review_pk): # 마지막에 특정 리뷰에 대한 pk가 필요함
+def comment_delete(request, comment_pk, pk): # 마지막에 특정 리뷰에 대한 pk가 필요함
     comment = Comment.objects.get(pk=comment_pk)
     comment.delete()
-    return redirect("review:detail", review_pk)
+    return redirect("reviews:detail", pk)
 
 @login_required
 def like(request, pk):
