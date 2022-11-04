@@ -5,11 +5,31 @@
 
 
 
-<p>이름 : {{ user.username }} </p>
+<p>이름 : {{ user.first_name }} </p>
+<p>닉네임(아이디) : {{user.username}}</p>
 <p>최근 접속시간 : {{ user.last_login }}</p>
 <p>이메일 : {{ user.email }}</p>
+<p>성별: {{ user.gender }}</p>
 
 
+
+
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form profile_form %}
+    {% bootstrap_button button_type="submit" content="OK" %}
+</form>
+
+<a href="{% url 'accounts:update' user.pk %}">회원정보 수정</a>
+
+
+
+
+{% if user.profile_set.all.count > 0 %}
+<img src="{{ profile_image.image.url }}" alt="">
+{% else %}
+<img class='w-100' src="https://cdn-icons-png.flaticon.com/512/2769/2769140.png">
+{% endif %}
 
 
 {% endblock content %}

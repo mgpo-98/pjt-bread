@@ -7,7 +7,9 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm, CustomUserChangeForm
+
+
 
 # 인덱스
 def index(request):
@@ -23,7 +25,7 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('accounts:index')
+            return redirect('accounts:login')
     else:   
         form = CustomUserCreationForm()
     context = {
@@ -53,7 +55,47 @@ def logout(request):
 # 회원 목록 조회 페이지
 def detail(request, pk):
     user = get_user_model().objects.get(pk=pk)
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, request.FILES)
+        if profile_form.is_valid():
+            profile = profile_form.save(commit=False)
+            profile.user = request.user 
+            profile.save()
+
+
+            # 만약 이미지가 하나 더 있으면? 첫번째거를 지우고 추가
+            if user.profile_set.all().count() > 1:
+                user.profile_set.all()[0].delete()
+                
+            return redirect('accounts:index')
+    else:
+        profile_form = ProfileForm()
+    
+    if user.profile_set.all().count() == 0:
+        profile_image = None
+    else:
+        profile_image = user.profile_set.all()[0]
     context = {
-        'user':user,
+        'user' : user,
+        'profile_form' : profile_form,
+        'profile_image' : profile_image,
     }
     return render(request, 'accounts/detail.html', context)
+
+# 회원정보 업데이트
+@login_required
+def update(request, pk): 
+    user = User.objects.get(pk=pk)
+    if request.method =='POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('accounts:index')
+    else:
+        form = CustomUserChangeForm(instance=request.user)
+    context ={
+        'form' : form,
+    }
+    return render(request, 'accounts/update.html', context )
+
+

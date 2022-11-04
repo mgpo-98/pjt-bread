@@ -1,9 +1,16 @@
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 # from .models import User
+
 from django.contrib.auth import get_user_model
 from django import forms
+from .models import Profile
+
+
+
 
 class CustomUserCreationForm(UserCreationForm):
+
+
     # username => 닉네임(아이디)
     username = forms.CharField(
         label ='닉네임(아이디)',
@@ -19,15 +26,27 @@ class CustomUserCreationForm(UserCreationForm):
         })
     )
     # last_name => 성별
-    last_name = forms.CharField(
-        label ='성별',
-        widget=forms.TextInput(attrs={
-            'placeholder' : '남자/여자'
-        })
-    )
 
+    
+    
+    
     class Meta:
         model = get_user_model()
-        fields = ('username','first_name','email','last_name',)
+        fields = ('username','first_name','email','gender')
 
 
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']
+
+# class CustomUserChangeForm(UserChangeForm):
+#     class Meta():
+#         model = get_user_model
+#         fields = ('email', 'first_name', 'username')
+class CustomUserChangeForm(UserChangeForm):
+    password = None
+    class Meta:
+        model = get_user_model()
+        fields = ('first_name', 'last_name', 'email',)
