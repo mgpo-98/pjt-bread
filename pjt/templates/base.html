@@ -6,26 +6,57 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <!-- css bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- js bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <!--자바스크립트-->
-    <script type="text/javascript" charset="utf-8" src="/static/front/js/jquery-1.9.1.js"></script>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+        crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+    <style>
+        * {
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        body {
+            background-image: url('/static/그림1.png');
+        }
+
+        @font-face {
+            font-family: 'ONE-Mobile-POP';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'SDSamliphopangche_Basic';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .btn-outline-primary {
+            --bs-btn-hover-color: var(--bs-white);
+            --bs-btn-hover-bg: var(--bs-white);
+            --bs-btn-hover-border-color: var(--bs-white);
+        }
+    </style>
+    <title>Document</title>
     {% block css %}{% endblock css %}
 
-  </head>
+</head>
 
-  <body>
-    <nav class="navbar navbar-expand-lg bg-light px-5 mb-3">
+<body class="back">
+    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: peru; opacity: 80%;">
         <div class="container-fluid">
             <!-- 싸이트 네브바 -->
             <a class="navbar-brand" href="{% url 'accounts:index' %}">
@@ -34,89 +65,90 @@
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="/home"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- 만약 로그인을 했다면-->
-                    {% if request.user.is_authenticated %}
-                    <!-- 로그아웃 보이기-->
-                    <li class="nav-item mt-3 ">
-                        <a class="nav-link" href="{% url 'accounts:logout' %}">로그아웃</a>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
+                    {% if user.is_anonymous %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'accounts:signup' %}"
+                            style="font-family: 'ONE-Mobile-POP';">회원가입</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{% url 'accounts:detail' user.pk %}">
-                            <span class="nav-link">{{ user.username }}</span></a>
+                        <a class="nav-link" href="{% url 'accounts:login' %}"
+                            style="font-family: 'ONE-Mobile-POP';">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- 자바스크립트 알트 버튼 -->
+                        <button onclick="bread()" type="button" class="btn " data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <!-- <img src="/static/빵지순례.png" alt="" style="height: 3rem;"> -->
+                            <a class="nav-link" href="#" style="font-family: 'ONE-Mobile-POP';">랜덤추천 빵</a>
+                        </button>
                     </li>
                     {% else %}
-                    <!-- 로그인과 회원가입 보이게 하기-->
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'accounts:login' %}">로그인</a>
+                        <a class="nav-link mx-3" href="" style="font-family: 'ONE-Mobile-POP';"> {{user}} 님</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'accounts:signup' %}">회원가입</a>
+                        <a class="nav-link mx-3" href="{% url 'accounts:logout' %}"
+                            style="font-family: 'ONE-Mobile-POP';">로그아웃</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link mx-3" href="{% url 'reviews:index' %}"
+                            style="font-family: 'ONE-Mobile-POP';">리얼리뷰</a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- 자바스크립트 알트 버튼 -->
+                        <button onclick="bread()" type="button" class="btn " data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            <!-- <img src="/static/빵지순례.png" alt="" style="height: 3rem;"> -->
+                            <a class="nav-link" href="#" style="font-family: 'ONE-Mobile-POP';">오늘의 빵</a>
+                        </button>
+                    </li>
                     {% endif %}
-                    <!-- 빵추천 팝업창-->
-
-            <li class="nav-item">
-              <!-- 자바스크립트 알트 버튼-->
-              <button onclick="bread()" type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <img src="{% static '빵지순례.png' %}" alt="img" style="height: 100px; width: 100px; ">
-              </button>
+                </ul>
+                <form class="d-flex align-items-center m-0" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-primary" type="submit"
+                        style="font-family: 'ONE-Mobile-POP'; color: whitesmoke; border-color: whitesmoke;">Search</button>
+                </form>
             </div>
-          </div>
         </div>
-      </div>
-  </ul>
-  <form class="d-flex" role="search">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-  </form>
-</div>
-</div>
-</nav>
-
-{% block content %}{% endblock content %}
-{% block js %}{% endblock js %}
+    </nav>
 </body>
 
-<script>
-//    자바스크립트 랜덤 뽑기 리스트
-var bread_menu_list = [
-'마늘빵',
-'코끼리빵',
-'크로와상',
-'공갈빵',
-'단팥빵',
-'슈크림빵',
-'도넛',
-'케이크',
-'식빵'
-]
-var bread_menu_img = {
-'마늘빵': 'https://recipe1.ezmember.co.kr/cache/recipe/2018/02/12/89b45644b695a32c06d4a8ed8b59db3d1.jpg',
-'코끼리빵': 'https://img.insight.co.kr/static/2021/01/04/1200/8tj15no99ovpy2sljg1d.jpg',
-'크로와상': 'https://t1.daumcdn.net/cfile/tistory/99E151455C75F80620',
-'공갈빵': 'https://img.bakingschool.co.kr/data/recipe/recipe_main/1800/1782_recipe_main_015a',
-'단팥빵': 'https://sitem.ssgcdn.com/29/91/03/item/1000034039129_i1_1200.jpg',
-'슈크림빵': 'https://image.utoimage.com/preview/cp907097/2020/06/202006001067_500.jpg',
-'도넛': 'http://www.astronomer.rocks/news/photo/201811/86623_11543_4134.jpeg',
-'케이크': 'https://img.danawa.com/prod_img/500000/515/433/img/14433515_1.jpg?shrink=330:330&_v=20210610094425',
-'식빵': 'https://img.maisonkorea.com/2017/09/msk_59cc9cb6ad4ba-1024x682.jpg'
-}
-// var bread_menu = choice(bread_menu_list)
-// var bread_img = bread_menu_img[bread_menu]
+{% block content %}{% endblock content %}
+</body>
 
-// 랜덤 뽑기 함수
-const bread_menu = bread_menu_list[Math.floor(Math.random() * bread_menu_list.length)];
+
+<script>
+    //    자바스크립트 랜덤 뽑기 리스트
+    var bread_menu_list = ['마늘빵', '코끼리빵', '크로와상', '공갈빵', '단팥빵', '슈크림빵', '도넛', '케이크', '식빵']
+    var bread_menu_img = {
+        '마늘빵': 'https://recipe1.ezmember.co.kr/cache/recipe/2018/02/12/89b45644b695a32c06d4a8ed8b59db3d1.jpg',
+        '코끼리빵': 'https://img.insight.co.kr/static/2021/01/04/1200/8tj15no99ovpy2sljg1d.jpg',
+        '크로와상': 'https://t1.daumcdn.net/cfile/tistory/99E151455C75F80620',
+        '공갈빵': 'https://img.bakingschool.co.kr/data/recipe/recipe_main/1800/1782_recipe_main_015a',
+        '단팥빵': 'https://sitem.ssgcdn.com/29/91/03/item/1000034039129_i1_1200.jpg',
+        '슈크림빵': 'https://image.utoimage.com/preview/cp907097/2020/06/202006001067_500.jpg',
+        '도넛': 'http://www.astronomer.rocks/news/photo/201811/86623_11543_4134.jpeg',
+        '케이크': 'https://img.danawa.com/prod_img/500000/515/433/img/14433515_1.jpg?shrink=330:330&_v=20210610094425',
+        '식빵': 'https://img.maisonkorea.com/2017/09/msk_59cc9cb6ad4ba-1024x682.jpg',
+    }
+    // var bread_menu = choice(bread_menu_list)
+    // var bread_img = bread_menu_img[bread_menu]
+
+    // 랜덤 뽑기 함수
+    const bread_menu = bread_menu_list[Math.floor(Math.random() * bread_menu_list.length)];
 
     function bread() {
-        alert('오늘의 빵추천 : ' + bread_menu)
-        location.reload();
+        alert('오늘의 빵 ' + bread_menu)
     }
-
 </script>
 
 </html>
