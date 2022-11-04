@@ -1,7 +1,8 @@
-from bs4 import BeautifulSoup
-import requests
+# from bs4 import BeautifulSoup
+# import requests
 import re
 from django.shortcuts import render
+from reviews.models import Review
 
 # keyword = request.GET.get('keyword')
 
@@ -21,7 +22,9 @@ def shops_by_region(request, region_name):
       'store_score': 평점,
       'store_img': 썸네일,
       'store_region': 위치정보,
+      'store_category': 가게 업종,   
       'store_id': 가게 url,
+      'review_cnt': 식당에 달린 리뷰 개수,
     }
   ]
   '''
@@ -49,12 +52,17 @@ def shops_by_region(request, region_name):
         store_data['store_score'] = store_score[i].text
         store_data['store_img'] = store_img_rst[i]['src']
         store_data['store_region'] = store_region[i * 2].text
-        store_data['store_id'] = p.search(store_id[i]['href']).group()
+        store_data['store_category'] = store_region[2 * i + 1].text
+
+        store_id_rst = p.search(store_id[i]['href']).group()
+        store_data['store_id'] = store_id_rst
+        store_data['review_cnt'] = Review.objects.filter(shop_id=int(store_id_rst)).count
         
         store_DB.append(store_data)
 
   context = {
       'store_DB': store_DB,
+      'region_name': region_name,
   }
 
   return render(request, 'bakeries/shop_list.html', context)
@@ -75,7 +83,9 @@ def shops_by_bread(request, bread_name):
       'store_score': 평점,
       'store_img': 썸네일,
       'store_region': 위치정보,
+      'store_category': 가게 업종,   
       'store_id': 가게 url,
+      'review_cnt': 식당에 달린 리뷰 개수,
     }
   ]
   '''
@@ -103,12 +113,17 @@ def shops_by_bread(request, bread_name):
         store_data['store_score'] = store_score[i].text
         store_data['store_img'] = store_img_rst[i]['src']
         store_data['store_region'] = store_region[i * 2].text
-        store_data['store_id'] = p.search(store_id[i]['href']).group()
+        store_data['store_category'] = store_region[2 * i + 1].text
         
+        store_id_rst = p.search(store_id[i]['href']).group()
+        store_data['store_id'] = store_id_rst
+        store_data['review_cnt'] = Review.objects.filter(shop_id=int(store_id_rst)).count
+
         store_DB.append(store_data)
 
   context = {
       'store_DB': store_DB,
+      'bread_name': bread_name,
   }
 
   return render(request, 'bakeries/shop_list.html', context)
@@ -171,17 +186,27 @@ def shop_home(request, shop_id):
     elif title_text == '전화번호':
         store_data['store_phone_number'] = title.next_sibling.get_text()
     elif title_text == '주소':
-        store_data['store_address'] = [text for text in title.next_sibling.stripped_strings][:-1]
+      address = list(title.next_sibling.stripped_strings)
+      if len(address) >=2:
+        store_data['store_address'] = [text for text in address][:-1]
+      else:
+        store_data['store_address'] = [text for text in address]
     elif title_text == '오시는 길':
         store_data['store_way_to_come'] = title.next_sibling.get_text()
     elif title_text == 'TODAY':
         store_data['store_today_operating_time'] = [text for text in title.next_sibling.stripped_strings]
     elif title_text == '영업시간':
-        store_data['store_operating_time'] = [text for text in title.next_sibling.stripped_strings]
+        operating_time = [text for text in title.next_sibling.stripped_strings]
+        operating_time_rst = []
+        for i in range(0, len(operating_time), 2):
+            operating_time_rst.append(operating_time[i:i + 2])
+        store_data['store_operating_time'] = operating_time_rst
     elif title_text == '편의/시설 정보':
-        store_data['store_facility_detail'] = [text for text in title.next_sibling.stripped_strings if text not in ['(', '(null)', '석)']]
+        p = re.compile('\([a-zA-Z]*\)|\(|\)|,|원')
+
+        store_data['store_facility_detail'] = [text for text in title.next_sibling.stripped_strings if not p.search(text)]
         if title.next_sibling.next_sibling:
-          store_data['store_facility_detail'].extend([re.sub(r'\s+', '', text) for text in title.next_sibling.next_sibling.stripped_strings if text not in [',']])
+          store_data['store_facility_detail'].extend([re.sub(r'\s+', '', text) for text in title.next_sibling.next_sibling.stripped_strings if not p.search(text)])
     elif title_text == '대표메뉴':
         menus = list(title.next_sibling.stripped_strings)
         store_main_menu = []
@@ -196,6 +221,8 @@ def shop_home(request, shop_id):
 
   context = {
     'store_data': store_data,
+    'shop_id': shop_id,
+    'reviews': Review.objects.filter(shop_id=shop_id),
   }
 
   return render(request, 'bakeries/shop_home.html', context)

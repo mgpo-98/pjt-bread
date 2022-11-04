@@ -4,31 +4,40 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Review, Comment
 from .forms import ReviewForm, CommentForm
+import random
 
 # Create your views here.
 @require_safe
 def index(request):
     reviews = Review.objects.order_by('-pk')
+    request.GET.get('shop_name')
     context = {
-        'reviews': reviews
+        'reviews': reviews,
+        'shop_name': request.GET.get('shop_name')
     }
     return render(request, 'reviews/index.html', context)
 
-@login_required
-def create(request):
+@login_required # 로그인한 경우에만 리뷰 작성 가능
+def create(request, shop_id):
+    shop_name = request.GET.get('shop_name')
+    # print(request.GET.get('shop_name'))
+    # print(shop_id)
     if request.method == 'POST':
         review_form = ReviewForm(request.POST, request.FILES)
         if review_form.is_valid():
-            review= review_form.save(commit=False)
+            review = review_form.save(commit=False)
             # 로그인한 유저 => 작성자네!
             review.user = request.user 
+            review.shop_id = shop_id
+            review.shop_name = shop_name 
             review.save()
             messages.success(request, '리뷰 작성이 완료되었습니다.')
             return redirect('reviews:index')
     else: 
         review_form = ReviewForm()
     context = {
-        'review_form': review_form
+        'review_form': review_form,
+        'shop_name': request.GET.get('shop_name')
     }
     return render(request, 'reviews/form.html', context=context)
 
@@ -59,7 +68,10 @@ def update(request, pk):
         else:
             # GET : Form을 제공
             review_form = ReviewForm(instance=review)
-        context = {"review_form": review_form}
+        context = {
+            "review_form": review_form,
+            'shop_name': review.shop_name
+        }
         return render(request, "reviews/form.html", context)
     else:
         # 작성자가 아닐 때
@@ -81,10 +93,10 @@ def comment_create(request, pk):
         comment.save()
     return redirect("reviews:detail", review.pk)
 
-def comment_delete(request, comment_pk, pk):
+def comment_delete(request, comment_pk, review_pk): # 마지막에 특정 리뷰에 대한 pk가 필요함
     comment = Comment.objects.get(pk=comment_pk)
     comment.delete()
-    return redirect("review:detail", pk)
+    return redirect("review:detail", review_pk)
 
 @login_required
 def like(request, pk):
@@ -103,6 +115,7 @@ def like(request, pk):
 
 
 # 리뷰 삭제
+@login_required
 def delete(request, pk):
     review = Review.objects.get(pk=pk)
     if request.method == 'POST':

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'reviews',
     'bakeries',
     'imagekit',
+    'widget_tweaks',
     'django_extensions',
     'django_bootstrap5',
     'django.contrib.admin',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
@@ -134,7 +136,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+# User Model
+AUTH_USER_MODEL = 'accounts.User'
 
 MEDIA_ROOT = BASE_DIR / 'images'
 MEDIA_URL = '/media/'
