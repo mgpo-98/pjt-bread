@@ -246,7 +246,7 @@
         <a href="{% url 'reviews:detail' review.pk %}" class='d-block ps-2 py-1 review-detail'>자세히</a>
       </div>
       {% empty %}
-      <p>작성된 리뷰가 없습니다</p>
+      <p class='text-center py-3'>작성된 리뷰가 없습니다</p>
       {% endfor %}
     </article>
   </section>
