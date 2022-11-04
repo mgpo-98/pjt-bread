@@ -196,7 +196,11 @@ def shop_home(request, shop_id):
     elif title_text == 'TODAY':
         store_data['store_today_operating_time'] = [text for text in title.next_sibling.stripped_strings]
     elif title_text == '영업시간':
-        store_data['store_operating_time'] = [text for text in title.next_sibling.stripped_strings]
+        operating_time = [text for text in title.next_sibling.stripped_strings]
+        operating_time_rst = []
+        for i in range(0, len(operating_time), 2):
+            operating_time_rst.append(operating_time[i:i + 2])
+        store_data['store_operating_time'] = operating_time_rst
     elif title_text == '편의/시설 정보':
         p = re.compile('\([a-zA-Z]*\)|\(|\)|,|원')
 
@@ -218,6 +222,7 @@ def shop_home(request, shop_id):
   context = {
     'store_data': store_data,
     'shop_id': shop_id,
+    'reviews': Review.objects.filter(shop_id=shop_id),
   }
 
   return render(request, 'bakeries/shop_home.html', context)

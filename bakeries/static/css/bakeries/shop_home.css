@@ -114,8 +114,41 @@
 }
 
 /* 상세 탭 상세 정보 */
-.even {
+.even, .bi-telephone {
   color: rgb(17, 137, 128);
   font-weight: bold;
 }
+.bi-house {
+  color: rgb(17, 137, 128);
+  font-weight: bold;
+  font-size: 1.2rem;
+}
 
+/* 리뷰 탭 상세 정보 */
+.review-block {
+  width: 440px;
+}
+.like-btn {
+  background-color: transparent;
+  border: none;
+}
+.bi-heart, .bi-heart-fill {
+  color: red;
+}
+.review-img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+}
+.review-detail {
+  color: orange;
+  font-weight: bold;
+  text-decoration: none;
+}
+.review-detail:hover {
+  background-color: rgba(255, 166, 0, 0.678);
+  border-radius: 2rem;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
