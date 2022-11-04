@@ -41,10 +41,18 @@ def shops_by_region(request, region_name):
       if store['alt'] != 'best':
           store_img_rst.append(store)
 
+  # 지역이 강릉일때, 가게명이 '에이엠브레드앤커피'인 데이터 모두 삭제
+  if store_name[12].text == '에이엠브레드앤커피':
+      store_name.pop(12)
+      store_score.pop(12)
+      store_region.pop(12)
+      store_region.pop(13)
+      store_id.pop(12)
+
   # 가게의 id 알아내기 위한 정규 표현식
   # 예) https://www.siksinhot.com/P/329263 에서 '329263'만 뽑아냄
   p = re.compile('[0-9]+')
-
+  
   for i in range(0, len(store_name)):
       store_data = {}
       if store_region[2 * i + 1].text in ['베이커리/제과점', '카페/커피숍', '샌드위치', '브런치']:

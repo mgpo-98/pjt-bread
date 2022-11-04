@@ -1,5 +1,7 @@
 
 from django.shortcuts import render
+from django.core.paginator import Paginator
+from reviews.models import Review
 from random import choice
 # Create your views here.
 
@@ -24,5 +26,17 @@ def bread(request):
     }
     return render(request, 'base.html', context)
 
+
 def home(request):
-    return render(request, 'home.html')
+    reviews = Review.objects.order_by('-pk')
+
+    page = request.GET.get('page', '1')
+    paginator = Paginator(reviews, 4)
+    posts = paginator.get_page(page)
+
+    context= {
+        'reviews' : reviews,
+        'posts' : posts,
+    }
+
+    return render(request, 'home.html', context)
