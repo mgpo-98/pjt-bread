@@ -1,5 +1,5 @@
-# from bs4 import BeautifulSoup
-# import requests
+from bs4 import BeautifulSoup
+import requests
 import re
 from django.shortcuts import render
 from reviews.models import Review
