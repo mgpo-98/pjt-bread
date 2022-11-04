@@ -23,6 +23,7 @@ from pjt import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bread/', views.bread, name='bread'),
+    path('home/', views.home, name='home'),
     path('accounts/', include('accounts.urls')),
     path('reviews/', include('reviews.urls')),
     path('bakeries/', include('bakeries.urls')),
