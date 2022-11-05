@@ -178,12 +178,14 @@
         </a>
       </li>
       {% endif %}
-        {% comment %} 페이지리스트 {% endcomment %}
-        {% for page_number in posts.paginator.page_range %}
-        {% if page_number >= posts.number|add:-5 and page_number <= posts.number|add:5 %}
-        {% if page_number == posts.number %}
-        <li class="page-item active" aria-current="page">
-        <a class="page-link" style="font-family: 'SDSamliphopangche_Basic'; border-color: chocolate; color: white; background-color: chocolate;" href="?page={{ page_number }}">{{ page_number }}</a>
+      {% comment %} 페이지리스트 {% endcomment %}
+      {% for page_number in posts.paginator.page_range %}
+      {% if page_number >= posts.number|add:-5 and page_number <= posts.number|add:5 %} 
+      {% if page_number == posts.number %}
+      <li class="page-item active" aria-current="page">
+        <a class="page-link"
+          style="font-family: 'SDSamliphopangche_Basic'; border-color: chocolate; color: white; background-color: chocolate;"
+          href="?page={{ page_number }}">{{ page_number }}</a>
         </li>
         {% else %}
         <li class="page-item">
