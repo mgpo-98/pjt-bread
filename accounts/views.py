@@ -98,6 +98,14 @@ def update(request, pk):
     }
     return render(request, 'accounts/update.html', context )
 
+#회원 탈퇴
+def delete(request):
+    if request.user.is_authenticated:
+        request.user.delete()
+        auth_logout(request)
+
+    return redirect('accounts:index')
+
 
 # 팔로우
 def follow(request, pk):

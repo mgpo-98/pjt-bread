@@ -3,280 +3,296 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin"/>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet"/>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    <style>
-      * {
-        font-family: "Noto Sans KR", sans-serif;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT"
+    crossorigin="anonymous"></script>
+  <style>
+    * {
+      font-family: "Noto Sans KR", sans-serif;
+    }
 
-      .back {
-        background-image: url("/static/그림1.png");
-      }
+    .back {
+      background-image: url("/static/그림1.png");
+    }
 
-      @font-face {
-        font-family: 'ONE-Mobile-POP';
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff") format('woff');
-        font-weight: normal;
-        font-style: normal;
-      }
+    @font-face {
+      font-family: 'ONE-Mobile-POP';
+      src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff") format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-      @font-face {
-        font-family: 'SDSamliphopangche_Basic';
-        src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff") format('woff');
-        font-weight: normal;
-        font-style: normal;
-      }
+    @font-face {
+      font-family: 'SDSamliphopangche_Basic';
+      src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff") format('woff');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-      .btn-outline-primary {
-        --bs-btn-hover-color: var(--bs-white);
-        --bs-btn-hover-bg: var(--bs-white);
-        --bs-btn-hover-border-color: var(--bs-white);
-      }
-    </style>
-    <title>Document</title>
-  </head>
+    .btn-outline-primary {
+      --bs-btn-hover-color: var(--bs-white);
+      --bs-btn-hover-bg: var(--bs-white);
+      --bs-btn-hover-border-color: var(--bs-white);
+    }
+  </style>
+  <title>Document</title>
+</head>
 
-  <body class="back">
-    {% comment %} base 네브바(추후에 삭제할 예정) {% endcomment %}
-    <nav class="navbar navbar-expand-lg sticky-top" style="background-color: peru; opacity: 80%;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="/"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
-            {% if user.is_anonymous %}
+<body class="back">
+  {% comment %} base 네브바(추후에 삭제할 예정) {% endcomment %}
+  <nav class="navbar navbar-expand-lg sticky-top" style="background-color: peru; opacity: 80%;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
+          {% if user.is_anonymous %}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'accounts:signup' %}"
+              style="font-family: 'ONE-Mobile-POP';">회원가입</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'accounts:login' %}" style="font-family: 'ONE-Mobile-POP';">로그인</a>
+          </li>
+          <li class="nav-item">
+            <!-- 자바스크립트 알트 버튼 -->
+            <button onclick="bread()" type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <!-- <img src="/static/빵지순례.png" alt="" style="height: 3rem;"> -->
+              <a class="nav-link" href="#" style="font-family: 'ONE-Mobile-POP';">오늘의 빵</a>
+            </button>
+          </li>
+          {% else %}
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" style="font-family: 'ONE-Mobile-POP';">회원가입</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#" style="font-family: 'ONE-Mobile-POP';">로그인</a>
-              </li>
-              <li class="nav-item">
-                <!-- 자바스크립트 알트 버튼 -->
-                <button onclick="bread()" type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <!-- <img src="/static/빵지순례.png" alt="" style="height: 3rem;"> -->
-                  <a class="nav-link" href="#" style="font-family: 'ONE-Mobile-POP';">오늘의 빵</a>
-                </button>
-              </li>
-            {% else %}
-              <li class="nav-item">
-                <a class="nav-link mx-3" href="" style="font-family: 'ONE-Mobile-POP';">
-                  {{user}}
-                  님</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-3" href="" style="font-family: 'ONE-Mobile-POP';">로그아웃</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link mx-3" href="" style="font-family: 'ONE-Mobile-POP';">리얼리뷰</a>
-              </li>
-              <li class="nav-item">
-                <!-- 자바스크립트 알트 버튼 -->
-                <button onclick="bread()" type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <!-- <img src="/static/빵지순례.png" alt="" style="height: 3rem;"> -->
-                  <a class="nav-link" href="#" style="font-family: 'ONE-Mobile-POP';">오늘의 빵</a>
-                </button>
-              </li>
-            {% endif %}
-          </ul>
-          <form class="d-flex align-items-center m-0" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary" type="submit" style="font-family: 'ONE-Mobile-POP'; color: whitesmoke; border-color: whitesmoke;">Search</button>
-          </form>
-        </div>
-      </div>
-    </nav>
-    {% comment %} 어디로 떠나볼까요 {% endcomment %}
-    <div class="m-4 py-4" style="background-color: rgb(255,228,196, 0.7); border-radius: 1rem; min-width:1250px;">
-      <div>
-        <h2 class="mb-3 text-center" style="font-family: 'SDSamliphopangche_Basic'; color: chocolate;">
-          <i class="bi bi-geo-alt-fill"></i>
-          어디로 떠나볼까요?
-        </h2>
-      </div>
-      <div class="d-flex justify-content-evenly">
-        <div>
-          <a href="{% url 'bakeries:shops_by_region' '성수' %}">
-            <img src="/static/성수.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_region' '강남' %}">
-            <img src="/static/강남.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_region' '인천' %}">
-            <img src="/static/인천.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_region' '강릉' %}">
-            <img src="/static/강릉.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_region' '부산' %}">
-            <img src="/static/부산.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_region' '대구' %}">
-            <img src="/static/대구.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_region' '광주' %}">
-            <img src="/static/광주.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_region' '제주' %}">
-            <img src="/static/제주.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
+            <a class="nav-link mx-3" href="{% url 'accounts:detail' user.pk %}" style="font-family: 'ONE-Mobile-POP';">
+              {{request.user}}
+              님</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-3" href="{% url 'accounts:logout' %}" style="font-family: 'ONE-Mobile-POP';">로그아웃</a>
+          </li>
+            <li class="nav-item">
+            <a class="nav-link mx-3" href="{% url 'reviews:index' %}" style="font-family: 'ONE-Mobile-POP';">리얼리뷰</a>
+          </li>
+          <li class="nav-item">
+            <!-- 자바스크립트 알트 버튼 -->
+            <button onclick="bread()" type="button" class="btn " data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <!-- <img src="/static/빵지순례.png" alt="" style="height: 3rem;"> -->
+              <a class="nav-link" href="#" style="font-family: 'ONE-Mobile-POP';">오늘의 빵</a>
+            </button>
+          </li>
+          {% endif %}
+        </ul>
+        <form class="d-flex align-items-center m-0" role="search" >
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-primary" type="submit"
+            style="font-family: 'ONE-Mobile-POP'; color: whitesmoke; border-color: whitesmoke;">Search</button>
+        </form>
       </div>
     </div>
-    {% comment %} 유저들의 리얼리뷰 {% endcomment %}
-    <div class="m-4 py-4 px-2" style="min-width:1250px; background-color: rgb(222,184,135, 0.7); border-radius: 1rem;">
-      <h2 class="text-center" style="font-family: 'SDSamliphopangche_Basic'; color: whitesmoke;">
-          <i class="bi bi-chat-dots-fill"></i>
-          유저들의 리얼리뷰!
-      </h2>
-      {% comment %} 페이지네이션 {% endcomment %}
-      <ul class="pagination justify-content-end">
-          {% comment %} 이전 페이지 {% endcomment %}
-          {% if posts.has_previous %}
-          <li class="page-item">
-          <a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Previous" style="border-color: chocolate; background-color: none; color: chocolate;">
-              <span aria-hidden="true">&laquo;</span>
-          </a>
-          </li>
-          {% else %}
-          <li class="page-item disabled">
-              <a class="page-link" tabindex="-1" aria-disabled="true" href="#" style="border-color: chocolate; background-color: none; color: chocolate;">
-                  <span aria-hidden="true">&laquo;</span>
-              </a>
-          </li>
-          {% endif %}
-          {% comment %} 페이지리스트 {% endcomment %}
-          {% for page_number in posts.paginator.page_range %}
-          {% if page_number >= posts.number|add:-5 and page_number <= posts.number|add:5 %}
-          {% if page_number == posts.number %}
-          <li class="page-item active" aria-current="page">
-          <a class="page-link" style="font-family: 'SDSamliphopangche_Basic'; border-color: chocolate; color: white; background-color: chocolate;" href="?page={{ page_number }}">{{ page_number }}</a>
-          </li>
-          {% else %}
-          <li class="page-item">
-          <a class="page-link" href="?page={{ page_number }}" style="font-family: 'SDSamliphopangche_Basic'; border-color: chocolate; color: chocolate;">{{ page_number }}</a>
-          </li>
-          {% endif %}
-          {% endif %}
-          {% endfor %}
-          {% comment %} 다음 페이지 {% endcomment %}
-          {% if posts.has_next %}
-          <li class="page-item">
-          <a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Next" style="border-color: chocolate; color: chocolate;">
-              <span aria-hidden="true">&raquo;</span>
-          </a>
-          </li>
-          {% else %}
-          <li class="page-item disabled">
-          <a class="page-link" tabindex="-1" aria-disabled="true" href="#" style="border-color: chocolate; color: chocolate;">
-              <span aria-hidden="true">&raquo;</span>
-          </a>
-          </li>
-          {% endif %}
-      </ul>
-      {% comment %} 리뷰 카드들 {% endcomment %}
-      <div class="row row-cols-4 g-2">
-        {% for review in posts %}
-        <div class='col'>
-            <article class="card h-100">
-              <div class="card-header text-center" style="font-family: 'SDSamliphopangche_Basic';">
-                👤 {{ review.user.username }}
-              </div>
-              {% if review.image %}
-              <img src="{{ review.image.url }}" class="card-img-top w-100" alt="..." style='height:230px; object-fit: cover;'>
-              {% else %}
-              <img src="{% static '로고.png' %}" class="card-img-top w-100" alt="..." style='height:230px; object-fit: contain;'>
-              {% endif %}
-              <div class="card-body">
-                <p class="card-text" style="font-family: 'SDSamliphopangche_Basic';">
-                    🥨 {{ review.shop_name }}
-                </p>
-                <p class="card-text" style="font-family: 'SDSamliphopangche_Basic';">
-                  {{ review.content|truncatechars:50 }}
-                </p>
-              </div>
-              <div class="card-footer" style="font-family: 'SDSamliphopangche_Basic';">
-                <a href="{% url 'reviews:detail' review.pk %}" class='text-decoration-none text-primary' style="font-family: 'SDSamliphopangche_Basic';">상세보기</a>
-              </div>
-            </article>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    {% comment %} 오늘의 빵을 선택해주세요 {% endcomment %}
-    <div class="m-4 py-4" style="min-width:1250px; background-color: rgb(255,254,243, 0.7); border-radius: 1rem;">
+  </nav>
+  {% comment %} 어디로 떠나볼까요 {% endcomment %}
+  <div class="m-4 py-4" style="background-color: rgb(255,228,196, 0.7); border-radius: 1rem; min-width:1250px;">
+    <div>
       <h2 class="mb-3 text-center" style="font-family: 'SDSamliphopangche_Basic'; color: chocolate;">
-          <i class="bi bi-arrow-through-heart-fill"></i>
-          오늘의 빵을 선택해주세요!
+        <i class="bi bi-geo-alt-fill"></i>
+        어디로 떠나볼까요?
       </h2>
-      <div class="d-flex" style="justify-content: space-evenly;">
-        <div>
-          <a href="{% url 'bakeries:shops_by_bread' '바게트' %}">
-            <img src="/static/바게트.png" alt="" style="height: 6rem;">
+    </div>
+    <div class="d-flex justify-content-evenly">
+      <div>
+        <a href="{% url 'bakeries:shops_by_region' '성수' %}">
+          <img src="/static/성수.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_region' '강남' %}">
+          <img src="/static/강남.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_region' '인천' %}">
+          <img src="/static/인천.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_region' '강릉' %}">
+          <img src="/static/강릉.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_region' '부산' %}">
+          <img src="/static/부산.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_region' '대구' %}">
+          <img src="/static/대구.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_region' '광주' %}">
+          <img src="/static/광주.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_region' '제주' %}">
+          <img src="/static/제주.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+
+    </div>
+  </div>
+  {% comment %} 유저들의 리얼리뷰 {% endcomment %}
+  <div class="m-4 py-4 px-2" style="min-width:1250px; background-color: rgb(222,184,135, 0.7); border-radius: 1rem;">
+    <h2 class="text-center" style="font-family: 'SDSamliphopangche_Basic'; color: whitesmoke;">
+      <i class="bi bi-chat-dots-fill"></i>
+      유저들의 리얼리뷰!
+    </h2>
+    {% comment %} 페이지네이션 {% endcomment %}
+    <ul class="pagination justify-content-end">
+      {% comment %} 이전 페이지 {% endcomment %}
+      {% if posts.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ posts.previous_page_number }}" aria-label="Previous"
+          style="border-color: chocolate; background-color: none; color: chocolate;">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" tabindex="-1" aria-disabled="true" href="#"
+          style="border-color: chocolate; background-color: none; color: chocolate;">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      {% endif %}
+      {% comment %} 페이지리스트 {% endcomment %}
+      {% for page_number in posts.paginator.page_range %}
+      {% if page_number >= posts.number|add:-5 and page_number <= posts.number|add:5 %} 
+      {% if page_number == posts.number %}
+      <li class="page-item active" aria-current="page">
+        <a class="page-link"
+          style="font-family: 'SDSamliphopangche_Basic'; border-color: chocolate; color: white; background-color: chocolate;"
+          href="?page={{ page_number }}">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+        <a class="page-link" href="?page={{ page_number }}" style="font-family: 'SDSamliphopangche_Basic'; border-color: chocolate; color: chocolate;">{{ page_number }}</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        {% comment %} 다음 페이지 {% endcomment %}
+        {% if posts.has_next %}
+        <li class="page-item">
+          <a class="page-link" href="?page={{ posts.next_page_number }}" aria-label="Next"
+            style="border-color: chocolate; color: chocolate;">
+            <span aria-hidden="true">&raquo;</span>
           </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_bread' '고로케' %}">
-            <img src="/static/고로케.png" alt="" style="height: 6rem;">
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link" tabindex="-1" aria-disabled="true" href="#"
+            style="border-color: chocolate; color: chocolate;">
+            <span aria-hidden="true">&raquo;</span>
           </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_bread' '베이글' %}">
-            <img src="/static/베이글.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_bread' '샌드위치' %}">
-            <img src="/static/샌드위치.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_bread' '슈크림' %}">
-            <img src="/static/슈크림.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_bread' '치아바타' %}">
-            <img src="/static/치아바타.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
-        <div>
-          <a href="{% url 'bakeries:shops_by_bread' '크로플' %}">
-            <img src="/static/크로플.png" alt="" style="height: 6rem;">
-          </a>
-        </div>
+        </li>
+        {% endif %}
+    </ul>
+    {% comment %} 리뷰 카드들 {% endcomment %}
+    <div class="row row-cols-4 g-2">
+      {% for review in posts %}
+      <div class='col'>
+        <article class="card h-100">
+          <div class="card-header text-center" style="font-family: 'SDSamliphopangche_Basic';">
+            👤 {{ review.user.username }}
+          </div>
+          <img src="{{ review.image.url }}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text" style="font-family: 'SDSamliphopangche_Basic';">
+              🥨 {{ review.shop_name }}
+            </p>
+            <p class="card-text" style="font-family: 'SDSamliphopangche_Basic';">
+              {{ review.content|truncatechars:50 }}
+            </p>
+          </div>
+          <div class="card-footer" style="font-family: 'SDSamliphopangche_Basic';">
+            <a href="{% url 'reviews:detail' review.pk %}" class='text-decoration-none text-primary'
+              style="font-family: 'SDSamliphopangche_Basic';">상세보기</a>
+          </div>
+        </article>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% comment %} 오늘의 빵을 선택해주세요 {% endcomment %}
+  <div class="m-4 py-4" style="min-width:1250px; background-color: rgb(255,254,243, 0.7); border-radius: 1rem;">
+    <h2 class="mb-3 text-center" style="font-family: 'SDSamliphopangche_Basic'; color: chocolate;">
+      <i class="bi bi-arrow-through-heart-fill"></i>
+      오늘의 빵을 선택해주세요!
+    </h2>
+    <div class="d-flex" style="justify-content: space-evenly;">
+      <div>
+        <a href="{% url 'bakeries:shops_by_bread' '바게트' %}">
+          <img src="/static/바게트.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_bread' '고로케' %}">
+          <img src="/static/고로케.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_bread' '베이글' %}">
+          <img src="/static/베이글.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_bread' '샌드위치' %}">
+          <img src="/static/샌드위치.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_bread' '슈크림' %}">
+          <img src="/static/슈크림.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_bread' '치아바타' %}">
+          <img src="/static/치아바타.png" alt="" style="height: 6rem;">
+        </a>
+      </div>
+      <div>
+        <a href="{% url 'bakeries:shops_by_bread' '크로플' %}">
+          <img src="/static/크로플.png" alt="" style="height: 6rem;">
+        </a>
       </div>
     </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz"
+    crossorigin="anonymous"></script>
+</body>
 
 </html>
