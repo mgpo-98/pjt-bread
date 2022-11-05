@@ -3,6 +3,7 @@
 {% bootstrap_javascript %}
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
@@ -27,19 +28,19 @@
         }
 
         body {
-            background-image: url('/static/그림1.png');
+            background-image: url("/static/그림1.png");
         }
 
         @font-face {
             font-family: 'ONE-Mobile-POP';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+            src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff") format('woff');
             font-weight: normal;
             font-style: normal;
         }
 
         @font-face {
             font-family: 'SDSamliphopangche_Basic';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff') format('woff');
+            src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff") format('woff');
             font-weight: normal;
             font-style: normal;
         }
@@ -58,7 +59,9 @@
 <body class="back">
     <nav class="navbar navbar-expand-lg sticky-top" style="background-color: peru; opacity: 80%;">
         <div class="container-fluid">
+
             <a class="navbar-brand" href="/home"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -86,14 +89,19 @@
                     {% else %}
                     <li class="nav-item">
                         <a class="nav-link mx-3" href="{% url 'accounts:detail' user.pk %}"
-                            style="font-family: 'ONE-Mobile-POP';"> {{user}} 님</a>
+
+                            style="font-family: 'ONE-Mobile-POP';">
+                            {{user}}
+                            님</a>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-3" href="{% url 'accounts:logout' %}"
                             style="font-family: 'ONE-Mobile-POP';">로그아웃</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-3" href="" style="font-family: 'ONE-Mobile-POP';">리얼리뷰</a>
+                        <a class="nav-link mx-3" href="{% url 'reviews:index' %}"
+                            style="font-family: 'ONE-Mobile-POP';">리얼리뷰</a>
                     </li>
                     <li class="nav-item">
                         <!-- 자바스크립트 알트 버튼 -->
@@ -113,15 +121,25 @@
             </div>
         </div>
     </nav>
-</body>
 
-{% block content %}{% endblock content %}
+    {% block content %}{% endblock content %}
+    {% block js %}{% endblock js %}
 </body>
 
 
 <script>
     //    자바스크립트 랜덤 뽑기 리스트
-    var bread_menu_list = ['마늘빵', '코끼리빵', '크로와상', '공갈빵', '단팥빵', '슈크림빵', '도넛', '케이크', '식빵']
+    var bread_menu_list = [
+        '마늘빵',
+        '코끼리빵',
+        '크로와상',
+        '공갈빵',
+        '단팥빵',
+        '슈크림빵',
+        '도넛',
+        '케이크',
+        '식빵'
+    ]
     var bread_menu_img = {
         '마늘빵': 'https://recipe1.ezmember.co.kr/cache/recipe/2018/02/12/89b45644b695a32c06d4a8ed8b59db3d1.jpg',
         '코끼리빵': 'https://img.insight.co.kr/static/2021/01/04/1200/8tj15no99ovpy2sljg1d.jpg',
@@ -131,7 +149,7 @@
         '슈크림빵': 'https://image.utoimage.com/preview/cp907097/2020/06/202006001067_500.jpg',
         '도넛': 'http://www.astronomer.rocks/news/photo/201811/86623_11543_4134.jpeg',
         '케이크': 'https://img.danawa.com/prod_img/500000/515/433/img/14433515_1.jpg?shrink=330:330&_v=20210610094425',
-        '식빵': 'https://img.maisonkorea.com/2017/09/msk_59cc9cb6ad4ba-1024x682.jpg',
+        '식빵': 'https://img.maisonkorea.com/2017/09/msk_59cc9cb6ad4ba-1024x682.jpg'
     }
     // var bread_menu = choice(bread_menu_list)
     // var bread_img = bread_menu_img[bread_menu]

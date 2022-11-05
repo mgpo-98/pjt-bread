@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST, require_safe
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Review, Comment
@@ -93,14 +94,15 @@ def comment_create(request, pk):
         comment.save()
     return redirect("reviews:detail", review.pk)
 
-def comment_delete(request, comment_pk, review_pk): # 마지막에 특정 리뷰에 대한 pk가 필요함
+def comment_delete(request, comment_pk, pk): # 마지막에 특정 리뷰에 대한 pk가 필요함
     comment = Comment.objects.get(pk=comment_pk)
     comment.delete()
-    return redirect("review:detail", review_pk)
+    return redirect("reviews:detail", pk)
 
 @login_required
 def like(request, pk):
     review = get_object_or_404(Review, pk=pk)
+    # print('hi') 요청 확인 위함
     # 만약 로그인한 유저(request.user)가 이 글을 좋아요 눌렀다면,
     if request.user in review.like_users.all():
         # 좋아요 삭제하고
@@ -110,8 +112,8 @@ def like(request, pk):
         review.like_users.add(request.user)
         is_liked = True
         # 상세 페이지로 redirect
-        context = {"isLiked": is_liked, "likeCount": review.like_users.count()}
-    return redirect("reviews:detail", review.pk)
+    context = {"isLiked": is_liked, "likeCount": review.like_users.count()}
+    return JsonResponse(context)
 
 
 # 리뷰 삭제

@@ -26,7 +26,7 @@
 {% endblock css %}
 
 {% block content %}
-<main class='container mb-5'>
+<main class='container mb-5' style='background-color:rgb(252, 248, 237, 0.7);'>
   {% comment %} 빵집 상세 페이지 공통 정보 {% endcomment %}
   <section>
     {% comment %} 배경 이미지 {% endcomment %}
@@ -104,7 +104,7 @@
         </div>
       </div>
       {% comment %} 빵집 이미지(carousel) {% endcomment %}
-      <h5 class='mt-4 fw-bold'>방문자 사진</h5>
+      <h5 class='mt-4 mb-3 fw-bold visitor-img-h4-tag'>방문자 사진</h5>
       {% comment %} <img src="{% static 'img/bakeries/visitor_imgs_bg.png' %}" alt=""> {% endcomment %}
       <div class='carousel-background'>
         <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
@@ -205,8 +205,10 @@
       <div class='mb-4'>
         <h5 class='fw-bold'>홈페이지</h5>
         {% for homepage in store_data.store_homepage %}
+        <div>
           <i class="bi bi-house"></i>
           <a href='{{ homepage }}'>{{ homepage }}</a>
+        </div>
         {% empty %}
           <p>없음</p>
         {% endfor %}
@@ -226,7 +228,7 @@
         </div>
       </div>
       {% for review in reviews %}
-      <div class='review-block border-bottom mx-auto py-3 px-2'>
+      <div class='review-block border-bottom mx-auto py-4 px-3'>
         <p class='fw-bold my-1'>{{ review.user }}</p>
         <div class='d-flex justify-content-between'>
           <form action="" class='my-1'>
@@ -246,7 +248,7 @@
         <a href="{% url 'reviews:detail' review.pk %}" class='d-block ps-2 py-1 review-detail'>자세히</a>
       </div>
       {% empty %}
-      <p>작성된 리뷰가 없습니다</p>
+      <p class='text-center py-3'>작성된 리뷰가 없습니다</p>
       {% endfor %}
     </article>
   </section>
