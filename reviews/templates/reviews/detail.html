@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load django_bootstrap5 %}
+{% bootstrap_css %}
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
@@ -14,41 +15,59 @@
 </div>
 <div class='header d-flex'>
   <div class='profile d-flex mt-2'>
+  
+  {% comment %} 리뷰 작성자 프로필 사진 {% endcomment %}
+  <span class='profile-pic' style="background-image">
+    
+  </span>
   {% comment %} 리뷰 작성자 이름(클릭하면 리뷰 프로필 페이지로 이동) {% endcomment %}
-  <span class='username'><a class='text-decoration-none fw-bolder' style='color:black' href="{% url 'accounts:detail' review.user.pk %}">{{ review.user.image }}{{ review.user.username }}</a></span>
+  <span class='username'><a class='text-decoration-none fw-bolder' style='color:black' href="{% url 'accounts:detail' review.user.pk %}"><img src="{{ review.user.profile_set.all.0.image.url }}" style='width:25px; height:25px; border-radius:50%'>&nbsp;&nbsp;{{ review.user.username }}</a></span>
   {% comment %} 리뷰 작성 개수 {% endcomment %}
   <span>&nbsp;리뷰 {{ user.review_set.count }}개</span>
   </div>
   
   {% comment %} 팔로우 버튼 {% endcomment %}
-  {% if request.user != user %}
-    <a style="text-decoration:none; color:blue;" class="follow-implement" href="{% url 'accounts:follow' user.pk %}">
+  {% if request.user != review.user %}
+    <div style='margin-left:auto; margin-right:1rem'>
+      <form class='follow-form' data-user-pk='{{ user.pk }}'>
+        {% csrf_token %}
         {% if request.user in user.followers.all %}
-        {% comment %} <i class="bi bi-backspace-fill"> Unfollow!</i> {% endcomment %}
-        <button class='btn btn-warning btn-rounded' style='border-radius:20px; margin-left:auto'>
-        <span class='label fw-bolder'>팔로우 취소</span>
-        </button> 
+          <input type="submit" class="btn btn-warning btn-rounded follow-btn fw-bolder" style='border-radius:20px; margin-left:auto' value='팔로우 취소'>
         {% else %}
-        {% comment %} <button class='btn btn-warning btn-rounded' style='border-radius:20px; margin-left:auto'>
-        <span class='label fw-bolder'>팔로우</span>
-        </button> {% endcomment %}
-        <i class="bi bi-check-square-fill"> Follow!</i>
+          <input type="submit" class="btn btn-warning btn-rounded follow-btn fw-bolder" style='border-radius:20px; margin-left:auto' value='팔로우'>
         {% endif %}
-    </a>
+      </form>
+    </div>
+  {% comment %} <a href="{% url 'accounts:follow' user.pk %}" style="text-decoration:none; color:blue;" class="follow-implement" >
+    {% if request.user in user.followers.all %}
+      <button class='btn btn-warning btn-rounded' style='border-radius:20px; margin-left:auto'>
+      <span class='label fw-bolder'>팔로우 취소</span>
+      </button> 
+    {% else %}
+      <button class='btn btn-warning btn-rounded' style='border-radius:20px; margin-left:auto'>
+      <span class='label fw-bolder'>팔로우</span>
+      </button>
+    {% endif %}
+  </a> {% endcomment %}
   {% endif %}
+  </div>
+</div>
+
+{% comment %} <div>
   <button class='btn btn-warning btn-rounded' style='border-radius:20px; margin-left:auto'>
   <span class='label fw-bolder'>팔로우</span>
   </button>
-</div>
+</div> {% endcomment %}
 
 {% comment %} 최근 방문일 {% endcomment %}
 <p class='mt-3 fw-bolder'>{{ review.visited_at.isoformat }}</p>
-<div class='justify-content-center'>
+{% comment %} 리뷰 이미지 {% endcomment %}
 {% if review.image %}
-  <img src='{{ review.image.url }}' alt='{{ review.image }}' width="400" height="300" style='border-radius:4px'>
-  <p class="me-3-5 mt-3">{{ review.content }}</p>
+<div style='text-align:center'>
+  <img src='{{ review.image.url }}' alt='{{ review.image }}' width="400" height="300" style='border-radius:4px;'>
 {% endif %}
 </div>
+  <p class="me-3-5 mt-3">{{ review.content }}</p>
 <span>
 {% comment %} 좋아요 버튼 {% endcomment %}
     {% if request.user.is_authenticated %}
@@ -90,13 +109,12 @@
 <form action="{% url 'reviews:comment_create' review.pk %}" method="POST">
   {% csrf_token %}
   {% bootstrap_form comment_form layout='inline'%}
-  <br>
-  {% bootstrap_button style='float:right; color:white' button_type="submit" button_class="btn btn-warning fw-bolder" content="OK" %}
+  {% bootstrap_button style='float:right; color:white' button_type="submit" button_class="btn btn-warning fw-bolder mt-1" content="OK" %}
 </form>
 {% endif %}
 
 {% for comment in comments %}
-<div class='mt-3'>
+<div class='py-3 mt-'>
   <div class="align-items-center">
     <a class="text-decoration-none fw-bolder" style='color:gray' href="{% url 'accounts:detail' comment.user.pk %}">{{ comment.user.username }}</a>&nbsp;&nbsp;{{ comment.content }}
   </div>
@@ -108,15 +126,17 @@
     </form>
   {% endif %}
 {% empty %}
-  <p>댓글을 입력해주세요</p>
+  <br>  
 {% endfor %}
 </div>
 </div>
 </div>  
 {% endblock %}
-{% comment %} 리뷰 좋아요 비동기 자바스크립트 {% endcomment %}
 
 {% block js %}
+{% comment %} 리뷰 좋아요 비동기 자바스크립트 {% endcomment %}
 <script src="{% static 'js/reviews/review_like.js' %}"></script>
+{% comment %} 팔로우 비동기 자바스크립트 {% endcomment %}
+{% comment %} <script src="{% static 'js/reviews/follow.js' %}"></script> {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 {% endblock js %}
