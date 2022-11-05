@@ -7,6 +7,7 @@ from django.conf import settings
 class Review(models.Model):
     shop_id = models.IntegerField()
     shop_name = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     visited_at = models.DateField('최근 방문일', null=True)
@@ -20,3 +21,4 @@ class Comment(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     content = models.TextField()    
+    created_at = models.DateTimeField(auto_now_add=True)

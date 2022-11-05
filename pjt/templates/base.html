@@ -57,7 +57,7 @@
 
 <body class="back">
     <nav class="navbar navbar-expand-lg sticky-top" style="background-color: peru; opacity: 80%;">
-        <div class="container-fluid"> 
+        <div class="container-fluid">
             <a class="navbar-brand" href="/home"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -68,11 +68,12 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
                     {% if user.is_anonymous %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#"
+                        <a class="nav-link active" aria-current="page" href="{% url 'accounts:signup' %}"
                             style="font-family: 'ONE-Mobile-POP';">회원가입</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" style="font-family: 'ONE-Mobile-POP';">로그인</a>
+                        <a class="nav-link" href="{% url 'accounts:login' %}"
+                            style="font-family: 'ONE-Mobile-POP';">로그인</a>
                     </li>
                     <li class="nav-item">
                         <!-- 자바스크립트 알트 버튼 -->
@@ -84,10 +85,12 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link mx-3" href="" style="font-family: 'ONE-Mobile-POP';"> {{user}} 님</a>
+                        <a class="nav-link mx-3" href="{% url 'accounts:detail' user.pk %}"
+                            style="font-family: 'ONE-Mobile-POP';"> {{user}} 님</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link mx-3" href="" style="font-family: 'ONE-Mobile-POP';">로그아웃</a>
+                        <a class="nav-link mx-3" href="{% url 'accounts:logout' %}"
+                            style="font-family: 'ONE-Mobile-POP';">로그아웃</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-3" href="" style="font-family: 'ONE-Mobile-POP';">리얼리뷰</a>
