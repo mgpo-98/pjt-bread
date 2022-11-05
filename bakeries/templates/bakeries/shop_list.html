@@ -7,27 +7,32 @@
 {% endblock css %}
 
 {% block content %}
-  <h1>
-    {% if region_name %}
-      {{ region_name }}
-    {% else %}
-      {{ bread_name }}
-    {% endif %}
-    검색 결과
-  </h1>
-  <p>{{ store_DB|length }}개의 빵집</p>
+  {% comment %} 상위 제목 {% endcomment %}
+  <section class='my-4 text-center'>
+    <h2 style="font-family: 'ONE-Mobile-POP'; color: chocolate; font-size: 3rem;">
+      {% if region_name %}
+        {{ region_name }}
+      {% else %}
+        {{ bread_name }}
+      {% endif %}
+      빵집
+    </h2>
+    <p style="font-family: 'ONE-Mobile-POP'; color: chocolate;">
+      총
+      <span class='fs-5 fw-bold' style='color:orange;'>{{ store_DB|length }}</span>개의 빵집
+    </p>
+  </section>
   {% comment %} 지역별 빵집 정보를 담은 카드들 {% endcomment %}
-  {% for store_data in store_DB %}
-  <a href="{% url 'bakeries:shop_home' store_data.store_id %}" class='text-decoration-none text-dark'>
-    <article class="card my-3">
-      <div class="card-body">
-        <div class='row'>
-          <div class='col-3'>
-            <img src="{{ store_data.store_img }}" alt="" class='w-100 rounded-4'>
-          </div>
-          <div class='col-9'>
+  <section class="row px-3">
+    {% for store_data in store_DB %}
+    {% comment %} breakpoint < md 일때 {% endcomment %}
+    <article class='col-12 d-md-none'>
+      <a href="{% url 'bakeries:shop_home' store_data.store_id %}" class='text-decoration-none text-dark'>
+        <div class="card my-3">
+          <div class="card-body">
+            <img src="{{ store_data.store_img }}" alt="" class='w-100 rounded-4' style='height:470px; object-fit:cover;'>
             <div class='d-flex align-items-center'>
-              <h4 class='fw-bold me-3 my-0'>
+              <h4 class='fw-bold me-3 my-0' style="font-family: 'SDSamliphopangche_Basic';">
                 {{ store_data.store_name }}
               </h4>
               <p class='shop-score m-0'>
@@ -48,8 +53,80 @@
             </div>
           </div>
         </div>
-      </div>
+      </a>
     </article>
-  </a>
-  {% endfor %}
+    {% comment %} md < breakpoint < lg 일때 {% endcomment %}
+    <article class='d-none d-md-block d-lg-none col-md-12'>
+      <a href="{% url 'bakeries:shop_home' store_data.store_id %}" class='text-decoration-none text-dark'>
+        <div class="card my-3">
+          <div class="card-body">
+            <div class='row'>
+              <div class='col-3'>
+                <img src="{{ store_data.store_img }}" alt="" class='w-100 rounded-4' style='height:143px; object-fit:cover;'>
+              </div>
+              <div class='col-9'>
+                <div class='d-flex align-items-center'>
+                  <h4 class='fw-bold me-3 my-0'>
+                    {{ store_data.store_name }}
+                  </h4>
+                  <p class='shop-score m-0'>
+                    {{ store_data.store_score }}
+                  </p>
+                </div>
+                <div class='d-flex align-items-center text-muted'>
+                  <p class='me-2 my-0'>
+                    {{ store_data.store_region }}
+                  </p>
+                  <p class='my-0'>
+                    {{ store_data.store_category }}
+                  </p>
+                </div>
+                <div class='mt-5'>
+                  <i class="bi bi-pencil-fill"></i>
+                  <span>{{ store_data.review_cnt }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </article>
+    {% comment %} lg < breakpoint 일때 {% endcomment %}
+    <article class='d-none d-lg-block col-lg-6'>
+      <a href="{% url 'bakeries:shop_home' store_data.store_id %}" class='text-decoration-none text-dark'>
+        <div class="card my-3">
+          <div class="card-body">
+            <div class='row'>
+              <div class='col-4'>
+                <img src="{{ store_data.store_img }}" alt="" class='w-100 rounded-4' style='height:150px; object-fit:cover;'>
+              </div>
+              <div class='col-8'>
+                <div class='d-flex align-items-center'>
+                  <h4 class='fw-bold me-3 my-0'>
+                    {{ store_data.store_name }}
+                  </h4>
+                  <p class='shop-score m-0'>
+                    {{ store_data.store_score }}
+                  </p>
+                </div>
+                <div class='d-flex align-items-center text-muted'>
+                  <p class='me-2 my-0'>
+                    {{ store_data.store_region }}
+                  </p>
+                  <p class='my-0'>
+                    {{ store_data.store_category }}
+                  </p>
+                </div>
+                <div class='mt-5'>
+                  <i class="bi bi-pencil-fill"></i>
+                  <span>{{ store_data.review_cnt }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+  </section>
 {% endblock content %}

@@ -38,3 +38,31 @@ const shopImageCarouselItems = document.querySelectorAll('.carousel-item')
 
 shopImageCarouselButtons[0].classList.add('active')
 shopImageCarouselItems[0].classList.add('active')
+
+
+
+
+// 좋아요기능 비동기 처리
+const likeBtnForms = document.querySelectorAll('.like-btn-form')
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+likeBtnForms.forEach(function (likeBtnForm) {
+  likeBtnForm.addEventListener('submit', function (event) {
+    event.preventDefault()
+    reviewId = event.target.dataset.reviewPk
+    axios({
+      method: 'post',
+      url: `/reviews/${reviewId}/like/`,
+      headers: { 'X-CSRFToken': csrftoken },
+    }).then(function (response) {
+      // 하트 아이콘 토글
+      const likeITag = document.querySelector(`.like-btn-${reviewId} > i`)
+      likeITag.classList.toggle('bi-heart-fill')
+      likeITag.classList.toggle('bi-heart')
+
+      // 좋아요 수 변경
+      const likeCntTag = document.querySelector(`.like-btn-${reviewId} > span`)
+      likeCntTag.innerText = response.data.likeCount
+    })
+  })
+})
