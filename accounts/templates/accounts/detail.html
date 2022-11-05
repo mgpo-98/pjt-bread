@@ -11,13 +11,8 @@
     {% endif%}
     <!-- 팔로우 버튼 -->
     {% if request.user != user %}
-    <a href="{% url 'accounts:follow' user.pk %}">
-        {% if request.user in user.followers.all %}
-        <button class="btn btn-outline-danger mb-3">팔로우 취소</button>
-        {% else %}
-        <button class="btn btn-outline-success mb-3">팔로우</button>
-        {% endif %}
-    </a>
+    <form id='follow-form'>
+    </form>
     {% endif %}
     <!-- 팔로워 팔로우 표시  -->
     <p>팔로우:
@@ -49,7 +44,7 @@
 
 
 
-
+{% if request.user == user %}
 <!-- 프로필 이미지 수정 -->
 <div class="container-sm m-3">
     <p>프로필 이미지 수정</p>
@@ -59,6 +54,7 @@
         {% bootstrap_button button_type="submit" content="OK" %}
     </form>
 </div>
+{% endif %}
 
 
 <!-- 작성글 댓글 등등 보기 -->
