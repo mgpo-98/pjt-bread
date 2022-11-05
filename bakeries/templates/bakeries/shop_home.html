@@ -231,9 +231,12 @@
       <div class='review-block border-bottom mx-auto py-4 px-3'>
         <p class='fw-bold my-1'>{{ review.user }}</p>
         <div class='d-flex justify-content-between'>
-          <form action="" class='my-1'>
-            <button type="submit" class='like-btn'>
-              {% if request.user in review.like_users %}
+          {% comment %} 좋아요 버튼 (비동기 처리) {% endcomment %}
+          {% if request.user.is_authenticated %}
+          <form class='like-btn-form my-1' data-review-pk='{{ review.pk }}'>
+            {% csrf_token %}
+            <button type="submit" class='like-btn like-btn-{{ review.pk }}'>
+              {% if request.user in review.like_users.all %}
               <i class="bi bi-heart-fill"></i>
               {% else %}
               <i class="bi bi-heart"></i>
@@ -241,9 +244,19 @@
               <span>{{ review.like_users.count }}</span>
             </button>
           </form>
+          {% else %}
+          <div clss='text-muted'>
+            <i class="bi bi-heart"></i>
+            <span>{{ review.like_users.count }}</span>
+          </div>
+          {% endif %}
           <p class='text-muted my-1'>{{ review.visited_at }}</p>
         </div>
+        {% if review.image %}
         <img src="{{ review.image.url }}" alt="" class='review-img rounded-4'>
+        {% else %}
+        <img src="{% static '로고.png' %}" class="card-img-top w-100" alt="..." style='object-fit: contain;'>
+        {% endif %}
         <p class="text-break my-1 px-2">{{ review.content|truncatechars:200 }}</p>
         <a href="{% url 'reviews:detail' review.pk %}" class='d-block ps-2 py-1 review-detail'>자세히</a>
       </div>
@@ -256,5 +269,6 @@
 {% endblock content %}
 
 {% block js %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="{% static 'js/bakeries/shop_home.js' %}"></script>
 {% endblock js %}
