@@ -60,7 +60,7 @@
     <nav class="navbar navbar-expand-lg sticky-top" style="background-color: peru; opacity: 80%;">
         <div class="container-fluid">
 
-            <a class="navbar-brand" href="/home"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
+            <a class="navbar-brand" href="/"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -91,7 +91,7 @@
                         <a class="nav-link mx-3" href="{% url 'accounts:detail' user.pk %}"
 
                             style="font-family: 'ONE-Mobile-POP';">
-                            {{user}}
+                            {{request.user}}
                             님</a>
 
                     </li>
@@ -121,12 +121,14 @@
             </div>
         </div>
     </nav>
+   
+   
 
     {% block content %}{% endblock content %}
     {% block js %}{% endblock js %}
 </body>
 
-
+{% block script %}
 <script>
     //    자바스크립트 랜덤 뽑기 리스트
     var bread_menu_list = [
@@ -161,5 +163,5 @@
         alert('오늘의 빵 ' + bread_menu)
     }
 </script>
-
+{% endblock script %}
 </html>
