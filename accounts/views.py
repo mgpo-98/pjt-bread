@@ -100,8 +100,10 @@ def update(request, pk):
 
 
 # 팔로우
+@login_required
 def follow(request, pk):
     user = get_object_or_404(get_user_model(),pk=pk)
+    user = get_user_model().objects.get(pk=pk)
     if request.user == user:
         messages.warning(request, '스스로를 팔로우 할 수 없습니다.')
         return redirect('accounts:detail', pk)

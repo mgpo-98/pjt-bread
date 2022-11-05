@@ -22,11 +22,11 @@
               </div>
             </div>
             
-            <div class="card-review-body" style='display:block; position:relative'>
+            <div class="card-review-body w-100" style='display:block; position:relative'>
             {% if review.image %}
-              <img class='w-100' src="{{ review.image.url }}" >
+              <img class='w-100' src="{{ review.image.url }}" style='height:278.4px; object-fit: contain;'>
             {% else %}
-             <img class='w-100' src="https://dummyimage.com/1200x960/000000/c4c4c4" >
+             <img class='w-100' src="/static/로고.png" style='height:278.4px; object-fit: contain;'>
             {% endif %}
             </div>
             <div class='card-review-footer' style='padding:15px'>
