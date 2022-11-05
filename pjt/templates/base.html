@@ -58,9 +58,7 @@
 <body class="back">
     <nav class="navbar navbar-expand-lg sticky-top" style="background-color: peru; opacity: 80%;">
         <div class="container-fluid">
-
             <a class="navbar-brand" href="/"><img src="/static/로고.png" alt="" style="width: 3rem;"></a>
-
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -92,7 +90,6 @@
                             style="font-family: 'ONE-Mobile-POP';">
                             {{request.user}}
                             님</a>
-
                     </li>
                     <li class="nav-item">
                         <a class="nav-link mx-3" href="{% url 'accounts:logout' %}"
@@ -112,10 +109,11 @@
                     </li>
                     {% endif %}
                 </ul>
-                <form class="d-flex align-items-center m-0" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                {% comment %} 빵집 탐색 기능(지역이름, 빵종류, 빵집 이름 모두 검색 가능) {% endcomment %}
+                <form action="{% url 'bakeries:search' %}" class="d-flex align-items-center m-0" role="search" method='GET'>
+                    <input class="form-control me-2" type="search" placeholder="지역명,빵종류,빵집을 검색해보세요" aria-label="Search" name='query'>
                     <button class="btn btn-outline-primary" type="submit"
-                        style="font-family: 'ONE-Mobile-POP'; color: whitesmoke; border-color: whitesmoke;">Search</button>
+                        style="font-family: 'ONE-Mobile-POP'; color: whitesmoke; border-color: whitesmoke; width:70px;">검색</button>
                 </form>
             </div>
         </div>

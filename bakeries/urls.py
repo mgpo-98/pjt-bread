@@ -9,4 +9,6 @@ urlpatterns = [
     path('shops/bread/<str:bread_name>/', views.shops_by_bread, name='shops_by_bread'),
     # 특정 빵집의 홈 상세 정보 조회
     path('shop/<int:shop_id>/', views.shop_home, name='shop_home'),
+    # 빵집 탐색(search) 기능
+    path('search/', views.search, name='search'),
 ]
