@@ -20,6 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from pjt import views
 
+app_name = 'pjt'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('bread/', views.bread, name='bread'),

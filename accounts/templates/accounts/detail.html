@@ -92,15 +92,4 @@
             </div>
         </div>
     </div>
-
-{% if request.user != user %}
-<a href="{% url 'accounts:follow' user.pk %}">
-    {% if request.user in user.followers.all %}
-    <button class="btn btn-outline-danger mb-3">팔로우 취소</button>
-    {% else %}
-    <button class="btn btn-outline-success mb-3">
-        팔로우</button>
-    {% endif %}
-    {% endif %}
-
 {% endblock content %}

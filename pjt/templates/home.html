@@ -74,15 +74,15 @@
             </button>
           </li>
           {% else %}
-          <li class="nav-item">
+              <li class="nav-item">
             <a class="nav-link mx-3" href="{% url 'accounts:detail' user.pk %}" style="font-family: 'ONE-Mobile-POP';">
-              {{user}}
+              {{request.user}}
               님</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mx-3" href="{% url 'accounts:logout' %}" style="font-family: 'ONE-Mobile-POP';">로그아웃</a>
           </li>
-          <li class="nav-item">
+            <li class="nav-item">
             <a class="nav-link mx-3" href="{% url 'reviews:index' %}" style="font-family: 'ONE-Mobile-POP';">리얼리뷰</a>
           </li>
           <li class="nav-item">
@@ -94,7 +94,7 @@
           </li>
           {% endif %}
         </ul>
-        <form class="d-flex align-items-center m-0" role="search">
+        <form class="d-flex align-items-center m-0" role="search" >
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-primary" type="submit"
             style="font-family: 'ONE-Mobile-POP'; color: whitesmoke; border-color: whitesmoke;">Search</button>
@@ -189,9 +189,7 @@
         </li>
         {% else %}
         <li class="page-item">
-          <a class="page-link" href="?page={{ page_number }}"
-            style="font-family: 'SDSamliphopangche_Basic'; border-color: chocolate; color: chocolate;">{{ page_number
-            }}</a>
+        <a class="page-link" href="?page={{ page_number }}" style="font-family: 'SDSamliphopangche_Basic'; border-color: chocolate; color: chocolate;">{{ page_number }}</a>
         </li>
         {% endif %}
         {% endif %}
