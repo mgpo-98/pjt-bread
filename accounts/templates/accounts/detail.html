@@ -15,9 +15,9 @@
     <form id='follow-form' data-user-id='{{ user.pk }}'>
         {% csrf_token %}
         {% if request.user in user.followers.all %}
-         <input type='submit' value="언팔로우" >
+        <input type='submit' class="btn btn-outline-danger mb-3" value="언팔로우" >
         {% else %}
-        <input type='submit' value='팔로우'>
+        <input type='submit' class="btn btn-outline-success mb-3" value='팔로우'>
         {% endif %}
     </form>
     {% endif %}
@@ -54,8 +54,9 @@
         <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="d-flex mt-2" style="flex-direction: row;">
-                <div style="font-family: 'ONE-Mobile-POP'; width: 50vh;">{% bootstrap_form profile_form %}</div>
-                <div style="font-family: 'ONE-Mobile-POP'; margin-top: 2rem; margin-left: 2rem;">{% bootstrap_button button_type="submit" button_class="btn-outline-warning" content="프로필이미지 수정" %}</div>
+                <div style="font-family: 'ONE-Mobile-POP'; width: 50vh;">{% bootstrap_form profile_form %}
+                    <div style="font-family: 'ONE-Mobile-POP'; margin-top: 1rem;">{% bootstrap_button button_type="submit" button_class="btn-outline-warning" content="프로필이미지 수정" %}</div>
+                </div>
                 <a href="{% url 'accounts:update' user.pk %}" class="btn btn-outline-warning" style="height: 2.4rem; font-family: 'ONE-Mobile-POP'; margin-top: 2rem; margin-left: 2rem;">회원정보 수정</a>
             </div>
         </form>
@@ -64,9 +65,9 @@
 
     
 
-    <div class="d-flex text-center" style="flex-direction: row; justify-content: space-evenly; margin-top: 3rem;">
+    <div class="row row-cols-3 g-3 text-center" style="flex-direction: row; justify-content: space-evenly; margin-top: 3rem;">
         <div>
-            <h3 style="font-family: 'ONE-Mobile-POP'; margin-left: 4.4rem;" >작성한 글</h3>
+            <h3 style="font-family: 'ONE-Mobile-POP';" >작성한 글</h3>
             {% for review in user.review_set.all %}
             <div class="card border-warning mb-3" style="max-width: 18rem;">
                 <div class="card-header">
@@ -84,7 +85,7 @@
             {% endfor %}
         </div>
         <div>
-            <h3 style="font-family: 'ONE-Mobile-POP'; margin-left: 3.6rem;">작성한 댓글</h3>
+            <h3 style="font-family: 'ONE-Mobile-POP';">작성한 댓글</h3>
             {% for comment in user.comment_set.all %}
             <div class="card border-warning mb-3" style="max-width: 18rem;">
                 <div class="card-header">
@@ -101,7 +102,7 @@
             {% endfor %}
         </div>
         <div class='text-align-center'>
-            <h3 style="font-family: 'ONE-Mobile-POP'; margin-left: 3.6rem;" >좋아요한 글</h3>
+            <h3 style="font-family: 'ONE-Mobile-POP';" >좋아요한 글</h3>
             {% for review in user.like_reviews.all %}
             <div class="card border-warning mb-3" style="max-width: 18rem;">
                 <div class="card-header">
