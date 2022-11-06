@@ -67,7 +67,7 @@ def detail(request, pk):
             if user.profile_set.all().count() > 1:
                 user.profile_set.all()[0].delete()
                 
-            return redirect('accounts:index')
+            return redirect('accounts:detail', pk)
     else:
         profile_form = ProfileForm()
     
@@ -90,7 +90,7 @@ def update(request, pk):
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            return redirect('accounts:index')
+            return redirect('accounts:detail')
     else:
         form = CustomUserChangeForm(instance=request.user)
     context ={
@@ -104,7 +104,7 @@ def delete(request):
         request.user.delete()
         auth_logout(request)
 
-    return redirect('accounts:index')
+    return redirect('/')
 
 
 # 팔로우

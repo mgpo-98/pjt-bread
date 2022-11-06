@@ -6,8 +6,6 @@ from django import forms
 from .models import Profile
 
 
-
-
 class CustomUserCreationForm(UserCreationForm):
 
 
@@ -45,8 +43,10 @@ class ProfileForm(forms.ModelForm):
 #     class Meta():
 #         model = get_user_model
 #         fields = ('email', 'first_name', 'username')
+
 class CustomUserChangeForm(UserChangeForm):
     password = None
+    
         # username => 닉네임(아이디)
     username = forms.CharField(
         label ='닉네임(아이디)',
