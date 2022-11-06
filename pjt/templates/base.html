@@ -85,7 +85,7 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link mx-3" href="{% url 'accounts:detail' user.pk %}"
+                        <a class="nav-link mx-3" href="{% url 'accounts:detail' request.user.pk %}"
 
                             style="font-family: 'ONE-Mobile-POP';">
                             {{request.user}}
