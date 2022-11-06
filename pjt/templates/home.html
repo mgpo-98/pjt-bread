@@ -119,7 +119,11 @@
         <div class="card-header text-center" style="font-family: 'SDSamliphopangche_Basic';">
           👤 {{ review.user.username }}
         </div>
-        <img src="{{ review.image.url }}" class="card-img-top" alt="...">
+        {% if review.image %}
+        <img src="{{ review.image.url }}" class="card-img-top" alt="..." style='height:278.4px; object-fit: cover;'>
+        {% else %}
+        <img src="{% static '로고.png' %}" class="card-img-top" alt="..." style='height:278.4px; object-fit: contain;'>
+        {% endif %}
         <div class="card-body">
           <p class="card-text" style="font-family: 'SDSamliphopangche_Basic';">
             🥨 {{ review.shop_name }}
