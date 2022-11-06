@@ -19,12 +19,11 @@
   <div class='profile d-flex mt-2'>
     {% comment %} 리뷰 작성자 프로필 사진 {% endcomment %}
     <span class='profile-pic' style="background-image">
-      
     </span>
     {% comment %} 리뷰 작성자 이름(클릭하면 리뷰 프로필 페이지로 이동) {% endcomment %}
     <span class='username'><a class='text-decoration-none fw-bolder' style='color:black' href="{% url 'accounts:detail' review.user.pk %}"><img src="{{ review.user.profile_set.all.0.image.url }}" style='width:25px; height:25px; border-radius:50%'>&nbsp;&nbsp;{{ review.user.username }}</a></span>
     {% comment %} 리뷰 작성 개수 {% endcomment %}
-    <span>&nbsp;리뷰 {{ user.review_set.count }}개</span>
+    <span>&nbsp;리뷰 {{ review.user.review_set.count }}개</span>
   </div>
   
   {% if request.user.is_authenticated %}
