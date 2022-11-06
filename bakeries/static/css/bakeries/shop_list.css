@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'SDSamliphopangche_Basic';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .shop-score {
   font-size: 2rem;
   font-weight: 700;
@@ -6,4 +13,8 @@
 
 .bi-pencil-fill {
   color: gray;
+}
+
+.card-body {
+  font-family: 'SDSamliphopangche_Basic';
 }

@@ -110,6 +110,7 @@ def delete(request):
 
 # 팔로우
 
+
 def follow(request, pk):
     if request.user.is_authenticated:
         User = get_user_model()
@@ -130,3 +131,4 @@ def follow(request, pk):
             return JsonResponse(context)
         return redirect('accounts:detail', you.username)
     return redirect('accounts:login')
+
