@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5 %}
+{% load static %}
 {% block content %}
+
+
+
 <!-- 제목 -->
 <div class="container-sm  d-flex justify-content-between mt-4">
     <h1>{{ user.username }}님의 회원 정보페이지</h1>
@@ -8,18 +12,28 @@
 
     {% if request.user == user %}
     <a href="{% url 'accounts:update' user.pk %}" class="btn btn-outline-success">회원정보 수정</a>
-    {% endif%}
+    {% endif %}
     <!-- 팔로우 버튼 -->
+    
     {% if request.user != user %}
-    <form id='follow-form'>
+    <div>
+        팔로워 : <span id ='followers-count'>{{ user.followers.all|length }} </span>
+        팔로잉 : <span id ='followings-count'>{{ user.followings.all|length }} </span>
+    </div>
+    
+    <form id='follow-form' data-user-id='{{ user.pk }}'>
+        {% csrf_token %}
+        {% if request.user in user.followers.all %}
+         <input type='submit' value="언팔로우" >
+        {% else %}
+        <input type='submit' value='팔로우'>
+        {% endif %}
+
     </form>
+       
     {% endif %}
     <!-- 팔로워 팔로우 표시  -->
-    <p>팔로우:
-        {{ user.followings.count }}
-        팔로워:
-        {{ user.followers.count }}
-    </p>
+  
 
 </div>
 
@@ -116,3 +130,10 @@
 </div>
 
 {% endblock content %}
+{% block js %}
+<script src='{% static "js/accounts/follower.js" %}'>
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js">
+</script>
+{% endblock js %}
