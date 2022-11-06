@@ -109,7 +109,7 @@ def delete(request):
 
 # 팔로우
 
-
+@login_required
 def follow(request, pk):
     if request.user.is_authenticated:
         User = get_user_model()
