@@ -27,6 +27,7 @@
     <span>&nbsp;리뷰 {{ user.review_set.count }}개</span>
   </div>
   
+  {% if request.user.is_authenticated %}
   {% comment %} 팔로우 버튼 {% endcomment %}
   {% if request.user != review.user %}
     <div style='margin-left:auto; margin-right:1rem'>
@@ -41,13 +42,10 @@
       </form>
     </div>
   {% endif %}
+  {% endif %}
 </div>
 
-{% comment %} <div>
-  <button class='btn btn-warning btn-rounded' style='border-radius:20px; margin-left:auto'>
-  <span class='label fw-bolder'>팔로우</span>
-  </button>
-</div> {% endcomment %}
+
 
 {% comment %} 최근 방문일 {% endcomment %}
 <p class='mt-3 fw-bolder'>{{ review.visited_at.isoformat }}</p>
