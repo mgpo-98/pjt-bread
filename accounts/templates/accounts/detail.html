@@ -24,8 +24,8 @@
     <!-- 팔로워 팔로우 표시  -->
 </div>
 
-<div class="m-4 d-flex justify-content-center align-items-center"
-        style="height: 50vh; flex-direction: column; background-color: rgb(255,247,187,0.7); border-radius: 1rem;">
+<div class="m-4 py-3 d-flex justify-content-center align-items-center"
+        style="flex-direction: column; background-color: rgb(255,247,187,0.7); border-radius: 1rem;">
         <div class="d-flex" style="flex-direction: row;">
             <div class="me-4">
                 {% if user.profile_set.all.count > 0 %}
@@ -64,66 +64,67 @@
     </div>
 
     
-
-    <div class="row row-cols-3 g-3 text-center" style="flex-direction: row; justify-content: space-evenly; margin-top: 3rem;">
-        <div>
-            <h3 style="font-family: 'ONE-Mobile-POP';" >작성한 글</h3>
-            {% for review in user.review_set.all %}
-            <div class="card border-warning mb-3" style="max-width: 18rem;">
-                <div class="card-header">
-                  
-                    <strong class="me-auto" style="font-family: 'ONE-Mobile-POP';">{{user.username}}</strong>
-                    <small class="text-muted" style="font-family: 'ONE-Mobile-POP';"> {{ review.created_at }}</small>
+    <div class='px-5'>
+        <div class="row row-cols-3 g-5 text-center" style="margin-top: 3rem;">
+            <div class='col'>
+                <h3 style="font-family: 'ONE-Mobile-POP';" >작성한 글</h3>
+                {% for review in user.review_set.all %}
+                <div class="card border-warning mb-3 mx-auto w-100" style="height:110px;">
+                    <div class="card-header">
+                      
+                        <strong class="me-auto" style="font-family: 'ONE-Mobile-POP';">{{user.username}}</strong>
+                        <small class="text-muted" style="font-family: 'ONE-Mobile-POP';"> {{ review.created_at }}</small>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'reviews:detail' user.pk %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
+                            <h5 class="card-title" style="font-family: 'ONE-Mobile-POP';">{{ review.content|truncatechars:10 }}
+                            </h5>
+                        </a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <a href="{% url 'reviews:detail' user.pk %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
-                        <h5 class="card-title" style="font-family: 'ONE-Mobile-POP';">{{ review.content }}
-                        </h5>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        <div>
-            <h3 style="font-family: 'ONE-Mobile-POP';">작성한 댓글</h3>
-            {% for comment in user.comment_set.all %}
-            <div class="card border-warning mb-3" style="max-width: 18rem;">
-                <div class="card-header">
-                    <strong class="me-auto" style="font-family: 'ONE-Mobile-POP';">{{user.username}}</strong>
-                    <small class="text-muted" style="font-family: 'ONE-Mobile-POP';">{{ comment.created_at }}</small>
+            <div class='col'>
+                <h3 style="font-family: 'ONE-Mobile-POP';">작성한 댓글</h3>
+                {% for comment in user.comment_set.all %}
+                <div class="card border-warning mb-3 mx-auto w-100" style="height:110px;">
+                    <div class="card-header">
+                        <strong class="me-auto" style="font-family: 'ONE-Mobile-POP';">{{user.username}}</strong>
+                        <small class="text-muted" style="font-family: 'ONE-Mobile-POP';">{{ comment.created_at }}</small>
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'reviews:detail' comment.user_id %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
+                            <h5 class="card-title" style="font-family: 'ONE-Mobile-POP';">{{ comment.content|truncatechars:10 }}
+                            </h5>
+                        </a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <a href="{% url 'reviews:detail' comment.user_id %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
-                        <h5 class="card-title" style="font-family: 'ONE-Mobile-POP';">{{ comment.content }}
-                        </h5>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
-        <div class='text-align-center'>
-            <h3 style="font-family: 'ONE-Mobile-POP';" >좋아요한 글</h3>
-            {% for review in user.like_reviews.all %}
-            <div class="card border-warning mb-3" style="max-width: 18rem;">
-                <div class="card-header">
-                    <strong class="me-auto" style="font-family: 'ONE-Mobile-POP';">{{user.username}}</strong>
-                    
+            <div class='col'>
+                <h3 style="font-family: 'ONE-Mobile-POP';" >좋아요한 글</h3>
+                {% for review in user.like_reviews.all %}
+                <div class="card border-warning mb-3 mx-auto w-100" style="height:110px;">
+                    <div class="card-header">
+                        <strong class="me-auto" style="font-family: 'ONE-Mobile-POP';">{{user.username}}</strong>
+                        
+                    </div>
+                    <div class="card-body">
+                        <a href="{% url 'reviews:detail' review.pk %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
+                            <h5 class="card-title" style="font-family: 'ONE-Mobile-POP';">{{ review.content|truncatechars:10 }}
+                            </h5>
+                        </a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <a href="{% url 'reviews:detail' review.pk %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
-                        <h5 class="card-title" style="font-family: 'ONE-Mobile-POP';">{{ review.content }}
-                        </h5>
-                    </a>
-                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
         </div>
     </div>
-
 </div>
+
 <!-- 회원탈퇴 -->
 {% if request.user == user %}
-<div class="container-sm  d-flex justify-content-end m-5">
+<div class="my-5 mx-4 float-end">
     <a href="{% url 'accounts:delete' %}" class="text-decoration-none btn btn-outline-danger mx-1">회원탈퇴</a>
 </div>
 {% endif %}
