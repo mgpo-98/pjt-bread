@@ -2,12 +2,13 @@
 {% load django_bootstrap5 %}
 {% block content %}
 
-<h1>회원 정보 수정</h1>
 
-<form action="" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form form %}
-    {% bootstrap_button button_type="submit" content="OK" %}
-</form>
-
+<div class='container py-3 px-5' style='width:480px'>
+<h1 class='text-center'>회원 정보 수정</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button button_type="submit" style='float:right; color:white' button_class="btn btn-warning fw-bolder" content="OK" %}
+    </form>
+</div>
 {% endblock content %}

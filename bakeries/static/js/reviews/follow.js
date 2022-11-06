@@ -11,9 +11,9 @@ followForm.addEventListener('submit', function (event) {
     // 팔로우 버튼 토글
     const followBtn = document.querySelector('#follow-btn')
     if (response.data.is_followed === false) {
-      followBtn.value = '팔로우 취소'
-    } else {
       followBtn.value = '팔로우'
+    } else {
+      followBtn.value = '언팔로우'
     }
     })
 })
