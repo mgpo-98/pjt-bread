@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm
+# from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import User 
 from django.contrib import messages
@@ -7,7 +7,7 @@ from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CustomUserCreationForm, ProfileForm, CustomUserChangeForm
+from .forms import CustomUserCreationForm, ProfileForm, CustomUserChangeForm, CustomAuthenticationForm
 from django.http import JsonResponse
 
 
@@ -36,12 +36,12 @@ def signup(request):
 # 로그인
 def login(request):
     if request.method == 'POST':
-        form = AuthenticationForm (request.POST, data=request.POST)
+        form = CustomAuthenticationForm(request.POST, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
             return redirect(request.GET.get('next') or '/')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     context = {
         'form' : form
     }

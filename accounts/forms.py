@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm, UsernameField
 # from .models import User
 
 from django.contrib.auth import get_user_model
@@ -65,3 +65,10 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = ('username','first_name','email','gender')
+
+
+class CustomAuthenticationForm(AuthenticationForm):
+    username = UsernameField(
+        label ='닉네임(아이디)',
+        widget=forms.TextInput(attrs={"autofocus": True})
+        )
