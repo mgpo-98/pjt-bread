@@ -3,27 +3,28 @@
 {% load django_bootstrap5 %}
 {% bootstrap_css %}
 
+{% block css %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="icon" href="https://templates.pingendo.com/assets/Pingendo_favicon.ico">
+{% endblock css %}
 
 {% block content %}
 <div class='wraper m-auto' style='max-width:720px; width:auto; box-shadow:0 0 20px rgb(0 0 0 / 5%);'>
 <div class='container py-3' style='background-color:rgb(252, 248, 237, 0.7);'>
-<div>
-{% comment %} 빵집 이름 {% endcomment %}
-<h3 class='fw-bolder'><a href="{% url 'bakeries:shop_home' review.shop_id %}" style='text-decoration:none; color:black'>🍞{{ review.shop_name }}</a></h3>
-</div>
+  <div>
+  {% comment %} 빵집 이름 {% endcomment %}
+  <h3 class='fw-bolder'><a href="{% url 'bakeries:shop_home' review.shop_id %}" style='text-decoration:none; color:black'>🍞{{ review.shop_name }}</a></h3>
+  </div>
 <div class='header d-flex'>
   <div class='profile d-flex mt-2'>
-  
-  {% comment %} 리뷰 작성자 프로필 사진 {% endcomment %}
-  <span class='profile-pic' style="background-image">
-    
-  </span>
-  {% comment %} 리뷰 작성자 이름(클릭하면 리뷰 프로필 페이지로 이동) {% endcomment %}
-  <span class='username'><a class='text-decoration-none fw-bolder' style='color:black' href="{% url 'accounts:detail' review.user.pk %}"><img src="{{ review.user.profile_set.all.0.image.url }}" style='width:25px; height:25px; border-radius:50%'>&nbsp;&nbsp;{{ review.user.username }}</a></span>
-  {% comment %} 리뷰 작성 개수 {% endcomment %}
-  <span>&nbsp;리뷰 {{ user.review_set.count }}개</span>
+    {% comment %} 리뷰 작성자 프로필 사진 {% endcomment %}
+    <span class='profile-pic' style="background-image">
+      
+    </span>
+    {% comment %} 리뷰 작성자 이름(클릭하면 리뷰 프로필 페이지로 이동) {% endcomment %}
+    <span class='username'><a class='text-decoration-none fw-bolder' style='color:black' href="{% url 'accounts:detail' review.user.pk %}"><img src="{{ review.user.profile_set.all.0.image.url }}" style='width:25px; height:25px; border-radius:50%'>&nbsp;&nbsp;{{ review.user.username }}</a></span>
+    {% comment %} 리뷰 작성 개수 {% endcomment %}
+    <span>&nbsp;리뷰 {{ user.review_set.count }}개</span>
   </div>
   
   {% comment %} 팔로우 버튼 {% endcomment %}
@@ -40,7 +41,6 @@
       </form>
     </div>
   {% endif %}
-  </div>
 </div>
 
 {% comment %} <div>
@@ -58,7 +58,7 @@
 </div>
 {% endif %} 
 {% comment %} endif 위치가 이미지를 감싸는 div 아래에 있어야 함 {% endcomment %}
-  <p class="me-3-5 mt-3">{{ review.content }}</p>
+  <p class="me-3-5 mt-3 text-break">{{ review.content }}</p>
 <span>
 {% comment %} 좋아요 버튼 {% endcomment %}
     {% if request.user.is_authenticated %}
@@ -107,7 +107,8 @@
 {% for comment in comments %}
 <div class='py-3 mt-'>
   <div class="align-items-center">
-    <a class="text-decoration-none fw-bolder" style='color:gray' href="{% url 'accounts:detail' comment.user.pk %}">{{ comment.user.username }}</a>&nbsp;&nbsp;{{ comment.content }}
+    <a class="text-decoration-none fw-bolder" style='color:gray' href="{% url 'accounts:detail' comment.user.pk %}">{{ comment.user.username }}</a>&nbsp;&nbsp;
+    <span class="text-break">{{ comment.content }}</span>
   </div>
   {% comment %} 댓글을 작성한 user가 리뷰를 쓴 유저인 경우 {% endcomment %}
   {% if review.user == comment.user %} 
