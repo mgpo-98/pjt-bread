@@ -29,12 +29,12 @@
   {% comment %} 팔로우 버튼 {% endcomment %}
   {% if request.user != review.user %}
     <div style='margin-left:auto; margin-right:1rem'>
-      <form class='follow-form' data-user-pk='{{ user.pk }}'>
+      <form id='follow-form' data-user-id='{{ user.pk }}'>
         {% csrf_token %}
         {% if request.user in user.followers.all %}
-          <input type="submit" class="btn btn-warning btn-rounded follow-btn fw-bolder" style='border-radius:20px; margin-left:auto' value='팔로우 취소'>
+          <input id='follow-btn' type="submit" class="btn btn-warning btn-rounded follow-btn fw-bolder" style='border-radius:20px; margin-left:auto' value='팔로우 취소'>
         {% else %}
-          <input type="submit" class="btn btn-warning btn-rounded follow-btn fw-bolder" style='border-radius:20px; margin-left:auto' value='팔로우'>
+          <input id='follow-btn' type="submit" class="btn btn-warning btn-rounded follow-btn fw-bolder" style='border-radius:20px; margin-left:auto' value='팔로우'>
         {% endif %}
       </form>
     </div>
@@ -73,12 +73,12 @@
     {% if request.user.is_authenticated %}
       <form data-review-id='{{ review.pk }}' id='like-btn' class="like-heart">
         {% csrf_token %}
-        <button class='review-detail-like-btn' type='submit'>
+        <button style='background-color:transparent; border:none;' class='review-detail-like-btn' type='submit'>
           {% if request.user in review.like_users.all %}
-            <i class="bi bi-heart-fill"></i>
+            <i style='color:red' class="bi bi-heart-fill"></i>
             <span id='review-like-user-cnt'>{{ review.like_users.count }}</span>
           {% else %}
-            <i class="bi bi-heart"></i>
+            <i style='color:red' class="bi bi-heart"></i>
             <span id='review-like-user-cnt'>{{ review.like_users.count }}</span>
           {% endif %}
         </button>
@@ -137,6 +137,7 @@
 {% comment %} 리뷰 좋아요 비동기 자바스크립트 {% endcomment %}
 <script src="{% static 'js/reviews/review_like.js' %}"></script>
 {% comment %} 팔로우 비동기 자바스크립트 {% endcomment %}
-{% comment %} <script src="{% static 'js/reviews/follow.js' %}"></script> {% endcomment %}
+<script src="{% static 'js/reviews/follow.js' %}"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 {% endblock js %}

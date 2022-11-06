@@ -11,7 +11,6 @@ from .forms import CustomUserCreationForm, ProfileForm, CustomUserChangeForm
 from django.http import JsonResponse
 
 
-
 # 인덱스
 def index(request):
     users = get_user_model().objects.all()
@@ -40,7 +39,7 @@ def login(request):
         form = AuthenticationForm (request.POST, data=request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            return redirect(request.GET.get('next') or 'accounts:index')
+            return redirect(request.GET.get('next') or '/')
     else:
         form = AuthenticationForm()
     context = {
@@ -51,7 +50,7 @@ def login(request):
 # 로그아웃
 def logout(request):
     auth_logout(request)
-    return redirect('accounts:index')
+    return redirect('/')
 
 # 회원 목록 조회 페이지
 def detail(request, pk):
