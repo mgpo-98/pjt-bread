@@ -50,7 +50,8 @@
         --bs-btn-hover-border-color: var(--bs-white);
       }
     </style>
-    <title>Document</title>
+    <title>빵지순례</title>
+    <link rel="icon" href="/static/빵.ico">
     {% block css %}{% endblock css %}
 
 </head>
@@ -122,12 +123,21 @@
             </div>
         </div>
     </nav>
-   
+    
+    {% block content %}{% endblock content %}
    
 
-    {% block content %}{% endblock content %}
     {% block js %}{% endblock js %}
 </body>
+<footer style="width:100%;height:4rem; background-color: peru; opacity: 80%;">
+    <div class="fw-bold text-center text-white" style="line-height: 4rem">© 2022 BREAD_ROAD
+        <a style='color:white' class='text-decoration-none' href="https://github.com/mgpo-98" target="_blank">조승윤</a>,
+        <a style='color:white' class='text-decoration-none' href="https://github.com/jelly12paw" target="_blank">박혜진</a>,
+        <a style='color:white' class='text-decoration-none' href="https://github.com/hyejinny97" target="_blank">윤혜진</a>
+        <a style='color:white' class='text-decoration-none' href="https://github.com/forwardyoung" target="_blank">차화영</a> at 11.07.2022
+    </div>
+</footer>
+    
 
 {% block script %}
 <script>
