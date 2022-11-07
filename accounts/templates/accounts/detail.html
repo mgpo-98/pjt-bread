@@ -4,7 +4,7 @@
 {% block content %}
 
 
-<section style="min-height:950px;">
+<section style="min-height:100vh;">
 <!-- 제목 -->
 <div class="container-sm  d-flex justify-content-between mt-4">
     <h1>{{ user.username }}님의 회원 정보페이지</h1>
@@ -24,7 +24,7 @@
     <!-- 팔로워 팔로우 표시  -->
 </div>
 
-<div class="m-4 py-3 d-flex justify-content-center align-items-center"
+    <div class="m-4 py-3 d-flex justify-content-center align-items-center"
         style="flex-direction: column; background-color: rgb(255,247,187,0.7); border-radius: 1rem;">
         <div class="d-flex" style="flex-direction: row;">
             <div class="me-4">
@@ -120,11 +120,11 @@
             </div>
         </div>
     </div>
-</div>
+
 
 <!-- 회원탈퇴 -->
 {% if request.user == user %}
-<div class="my-5 mx-4 float-end">
+<div class="my-3 mx-4 d-flex justify-content-end">
     <a href="{% url 'accounts:delete' %}" class="text-decoration-none btn btn-outline-danger mx-1">회원탈퇴</a>
 </div>
 {% endif %}
