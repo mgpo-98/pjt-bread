@@ -4,7 +4,7 @@
 {% block content %}
 
 
-
+<section style="min-height:950px;">
 <!-- 제목 -->
 <div class="container-sm  d-flex justify-content-between mt-4">
     <h1>{{ user.username }}님의 회원 정보페이지</h1>
@@ -128,6 +128,7 @@
     <a href="{% url 'accounts:delete' %}" class="text-decoration-none btn btn-outline-danger mx-1">회원탈퇴</a>
 </div>
 {% endif %}
+</section>
 
 {% endblock content %}
 {% block js %}
