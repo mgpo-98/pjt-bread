@@ -21,7 +21,15 @@
     <span class='profile-pic' style="background-image">
     </span>
     {% comment %} 리뷰 작성자 이름(클릭하면 리뷰 프로필 페이지로 이동) {% endcomment %}
-    <span class='username'><a class='text-decoration-none fw-bolder' style='color:black' href="{% url 'accounts:detail' review.user.pk %}"><img src="{{ review.user.profile_set.all.0.image.url }}" style='width:25px; height:25px; border-radius:50%'>&nbsp;&nbsp;{{ review.user.username }}</a></span>
+    <span class='username'><a class='text-decoration-none fw-bolder' style='color:black' href="{% url 'accounts:detail' review.user.pk %}">
+    {% comment %} 프로필 페이지에서 별도로 프로필 사진을 설정한 경우 {% endcomment %}
+    {% if user.profile_set.all.count > 0 %}
+    <img src="{{ review.user.profile_set.all.0.image.url }}" style='width:25px; height:25px; border-radius:50%'>
+    {% comment %} 회원가입 후 프로필 페이지에서 별도로 프로필 사진 수정을 하지 않은 경우 {% endcomment %}
+    {% else %}
+    <img src="https://image.idus.com/image/files/449a7e7a064c41baada8d3294f99d2af_720.jpg" style='width:25px; height:25px; border-radius:50%'>
+    {% endif %}
+    &nbsp;&nbsp;{{ review.user.username }}</a></span>
     {% comment %} 리뷰 작성 개수 {% endcomment %}
     <span>&nbsp;리뷰 {{ review.user.review_set.count }}개</span>
   </div>
@@ -33,7 +41,7 @@
       {% comment %} 리뷰를 작성한 user의 pk값이 필요하므로 data-user-id를 다음과 같이 설정해야 함! {% endcomment %}
       <form id='follow-form' data-user-id='{{ review.user.pk }}'>
         {% csrf_token %}
-        {% if request.user in user.followers.all %}
+        {% if request.user in review.user.followers.all %}
           <input id='follow-btn' type="submit" class="btn btn-warning btn-rounded follow-btn fw-bolder" style='border-radius:20px; margin-left:auto' value='언팔로우'>
         {% else %}
           <input id='follow-btn' type="submit" class="btn btn-warning btn-rounded follow-btn fw-bolder" style='border-radius:20px; margin-left:auto' value='팔로우'>
@@ -108,7 +116,7 @@
     <span class="text-break">{{ comment.content }}</span>
   </div>
   {% comment %} 댓글을 작성한 user가 리뷰를 쓴 유저인 경우 {% endcomment %}
-  {% if review.user == comment.user %} 
+  {% if user.is_authenticated and comment.user == request.user %}
     <form action="{% url 'reviews:comment_delete' review.pk comment.pk %}" method="POST" class="my-0">
       {% csrf_token %}
       <input type="submit" class="btn btn-outline-danger mt-2" value="삭제">
