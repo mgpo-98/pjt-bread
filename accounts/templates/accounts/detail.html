@@ -76,7 +76,7 @@
                         <small class="text-muted" style="font-family: 'ONE-Mobile-POP';"> {{ review.created_at }}</small>
                     </div>
                     <div class="card-body">
-                        <a href="{% url 'reviews:detail' user.pk %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
+                        <a href="{% url 'reviews:detail' review.pk %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
                             <h5 class="card-title" style="font-family: 'ONE-Mobile-POP';">{{ review.content|truncatechars:10 }}
                             </h5>
                         </a>
@@ -93,7 +93,7 @@
                         <small class="text-muted" style="font-family: 'ONE-Mobile-POP';">{{ comment.created_at }}</small>
                     </div>
                     <div class="card-body">
-                        <a href="{% url 'reviews:detail' comment.user_id %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
+                        <a href="{% url 'reviews:detail' comment.review.pk %}" class='text-decoration-none' style='color:rgb(214, 155, 97)'>
                             <h5 class="card-title" style="font-family: 'ONE-Mobile-POP';">{{ comment.content|truncatechars:10 }}
                             </h5>
                         </a>
