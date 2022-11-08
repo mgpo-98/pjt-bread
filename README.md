@@ -2,6 +2,9 @@
 <br>
 
     - 식신페이지에서 크롤링한 데이터를 사용한 빵집 사이트
+    
+    - 헤로쿠 배포
+    - https://calm-retreat-05431.herokuapp.com/
 
 <hr>
 <br>
