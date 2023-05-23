@@ -12,8 +12,7 @@ def shops_by_region(request, region_name):
   keyword = f'{region_name} 빵집' # 검색어
   search_url = base_url + keyword # 식신페이지 + 검색어
   r = requests.get(search_url) # 페이지에 요청하기
-  soup = BeautifulSoup(r.text, "html.parser") # 요청한 데이터 텍스트로 불러오기
-
+  soup = BeautifulSoup(r.text, "html.parser") # 요청한 데이터 텍스트로 불러오기fcdx
   store_DB = [] # 한 페이지 내 모든 가게의 데이터
   '''
   [
@@ -28,7 +27,10 @@ def shops_by_region(request, region_name):
     }
   ]
   '''
-  
+  #contents > div > div:nth-child(2) > div > div.section > div > div > ul:nth-child(3) > li:nth-child(4) > div > a > div > strong
+  #contents > div > div:nth-child(2) > div > div.section > div > div > ul:nth-child(5) > li:nth-child(4) > div > a > div > strong
+  #contents > div > div:nth-child(2) > div > div.section > div > div > ul:nth-child(2) > li:nth-child(2) > div > a > span > img
+  #contents > div > div > div:nth-child(2) > div > ul > div > div > div > li.slick-slide.slick-active.slick-center > a > img
   store_name = soup.select(".textBox > h2") # 식당 이름
   store_score = soup.select(".textBox > span") # 식당 평점
   store_img = soup.select("figure > a > img") # 식당 이미지 주소
